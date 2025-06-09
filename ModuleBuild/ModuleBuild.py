@@ -36,7 +36,6 @@ def build_sgmodule(rule_text, project_name):
     formatted_time = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
     rule_pattern = r'^(?!.*[#;])(AND|DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR6?|URL-REGEX),'
     rewrite_pattern = r'^(?!.*[#;])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
-    echo_pattern = r'^(?!.*[#;])(.*?)\s*url\s+(echo-response)\s+(\S+)\s+(echo-response)\s+(\S+)'
     header_pattern = r'^(?!.*[#;])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
     jq_pattern = r'^(?!.*[#;])(.*?)\s+url\s+jsonjq-response-body\s+(?:\'([^\']+)\'|jq-path="([^"]+)")'
     script_pattern = r'^(?!.*[#;])(.*?)\s*url\s+(script-(?:response|request)-(?:body|header)|script-echo-response|script-analyze-echo-response)\s+(\S+)'
@@ -66,9 +65,6 @@ def build_sgmodule(rule_text, project_name):
         pattern = match.group(1).strip()
         reject_type = match.group(2).strip()
         url_content += f"{pattern} - {reject_type}\n"
-    for match in re.finditer(echo_pattern, rule_text, re.MULTILINE):
-        pattern = match.group(1).strip()
-        url_content += f"{pattern} - reject-200\n"
     for match in re.finditer(header_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
         reject_type = match.group(2).strip()
