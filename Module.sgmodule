@@ -1,5 +1,5 @@
 #!name=融合模块
-#!desc=2025-06-09 22:25:21
+#!desc=2025-06-09 22:26:53
 
 [Rule]
 AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN,youtubei.googleapis.com)), REJECT
@@ -321,9 +321,6 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/api\.applovefrom\.com\/api\/v\d\/splash\/ - reject
 ^https?:\/\/api\.babytree\.com\/api\/(advertising|mobile_activity) - reject
 ^https?:\/\/api\.babytree\.com\/preg_intf\/index_content\/index_banner - reject
-^https?:\/\/api\.bilibili\.com\/x\/mengqi\/v\d\/resource\? - reject-dict
-^https?:\/\/api\.bilibili\.com\/x\/v\d\/dm\/qoe\/show\? - reject-dict
-^https?:\/\/api\.bilibili\.com\/x\/web-interface\/zone\?jsonp - reject-dict
 ^https?:\/\/api\.bjxkhc\.com\/index\.php\/app\/ios\/ads\/ - reject
 ^https?:\/\/api\.bjxkhc\.com\/index\.php\/app\/ios\/pay/ok$ - reject-dict
 ^https?:\/\/api\.bjxkhc\.com\/index\.php\/app\/ios\/ver/index_ios$ - reject
@@ -387,6 +384,7 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/api\.k\.sohu\.com\/api\/channel\/ad\/ - reject-img
 ^https?:\/\/api\.k\.sohu\.com\/api\/news\/adsense - reject-200
 ^https?:\/\/api\.laifeng\.com\/v\d\/start\/ads - reject
+^https?:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v1\/ecommerce-user\/get_shopping_info\? - reject-dict
 ^https?:\/\/api\.m\.jd\.com\/\?loginType=11 - reject-dict
 ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=getWidgetV1052 - reject
 ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start - reject-img
@@ -533,7 +531,6 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/app\.api\.d3yuiw4\.com\/api\/app\/ad - reject
 ^https?:\/\/app\.api\.versa-ai\.com\/launch\/ads\? - reject-200
 ^https?:\/\/app\.badmintoncn\.com\/mag\/operative\/v\d\/ad\/listNotEndByPlace\?place=first_page - reject-200
-^https?:\/\/app\.bilibili\.com\/x\/resource\/ip - reject-dict
 ^https?:\/\/app\.ceair\.com\/customize\/main\/adScreen - reject-dict
 ^https?:\/\/app\.ceair\.com\/customize\/security\/update - reject-200
 ^https?:\/\/app\.chinahxzq\.com\.cn:9302\/starway-api\/ad - reject-dict
@@ -1583,6 +1580,14 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/zua\.zhidiantianxia\.cn\/api\/adverts - reject
 
 [Body Rewrite]
+http-response-jq ^https?:\/\/api\.bilibili\.com\/pgc\/view\/v2\/app\/season\? 'del(.data.payment)'
+http-response-jq ^https?:\/\/api\.bilibili\.com\/pgc\/page\/(?:bangumi|cinema\/tab)\? '.result.modules |= if . then map(if (.style | startswith("tip")) or (.module_id | IN(241, 1283, 1441, 1284)) then .items = [] elif .style | startswith("banner") then .items |= if . then map(select(.link | contains("play"))) else [] end elif .style | startswith("function") then .items |= if . then map(select(.blink | startswith("bilibili"))) else [] end end) end'
+http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? jq-path="https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bilibili.tab.jq"
+http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:list|show|event\/list2)\? '.data |= with_entries(if .key | IN("show", "event_list") then .value = [] else . end)'
+http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\? 'if .data.items then .data.items |= map(select((.banner_item == null) and (.ad_info == null) and (.card_goto == "av") and (.card_type | IN("small_cover_v2", "large_cover_single_v9", "large_cover_v1")))) end'
+http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\/story\? 'if .data.items then .data.items |= map(select((.ad_info == null) and (.card_goto | startswith("ad") | not)) | del(.story_cart_icon, .free_flow_toast)) end'
+http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/mine(?:\/ipad)?\? jq-path="https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bilibili.mine.jq"
+http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? '.data.vip |= if . != null and .status == 0 then . + { status: 1, type: 2, due_date: 9005270400000, role: 15 } else . end'
 
 [Script]
 12306 =type=http-request, pattern=^https?:\/\/ad\.12306\.cn\/ad\/ser\/getAdList, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/12306.js, requires-body=true, max-size=0
@@ -1731,8 +1736,6 @@ huifutianxia_ads =type=http-response, pattern=^https?:\/\/saas-ad\.cloudpnr\.com
 ithome =type=http-response, pattern=^https?:\/\/napi\.ithome\.com\/api\/(news\/index|topmenu\/getfeeds), script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/ithome.js, requires-body=true, max-size=0
 jingdong =type=http-response, pattern=^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=(deliverLayer|getTabHomeInfo|myOrderInfo|orderTrackBusiness|personinfoBusiness|start|welcomeHome), script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/jingdong.js, requires-body=true, max-size=0
 jingxiAd =type=http-response, pattern=^https?:\/\/api\.m\.jd\.com\/api\?functionId=delivery_show, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/jingxiAd.js, requires-body=true, max-size=0
-json =type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/top\/activity\?, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/json.js, requires-body=true, max-size=0
-json =type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/v\d\/search\/square\?, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/json.js, requires-body=true, max-size=0
 keep =type=http-response, pattern=^https?:\/\/api\.gotokeep\.com\/athena\/v\d\/people\/my$, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/keep.js, requires-body=true, max-size=0
 keep =type=http-response, pattern=^https?:\/\/api\.gotokeep\.com\/homepage\/v\d\/tab, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/keep.js, requires-body=true, max-size=0
 keep =type=http-response, pattern=^https?:\/\/api\.gotokeep\.com\/nuocha\/course\/v\d/\w+\/preview, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/keep.js, requires-body=true, max-size=0
