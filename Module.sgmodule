@@ -1,12 +1,10 @@
 #!name=融合模块
-#!desc=2025-06-09 08:53:42
+#!desc=2025-06-09 10:44:06
 
 [Rule]
 AND, ((PROTOCOL,UDP),(DST-PORT,443)), REJECT
 
 [URL Rewrite]
-^https:\/\/dsp\.fcbox\.com\/adSearch\/get\? - reject
-^https:\/\/external\.fcbox\.com\/wxgw\/post\/suggestion\/query - reject
 ^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/music\/common\/upload\/t_splash_info\/ - reject
 ^https?:\/\/(?:gmp|wallet)\.lakala\.com\/(?:gmp\/openapi\/v2\/resource_space\/getResourceSpace|m\/(?:a\/lama\/mgt\/activity\/biz\/query\/byMerInfo|lama\/mgt\/activity\/(?:bank|biz)\/query\/list)) - reject-dict
 ^https?:\/\/(adse\.wsa|adse|adbehavior|xdcs-collector)\.ximalaya\.com\/.* - reject
@@ -718,6 +716,7 @@ AND, ((PROTOCOL,UDP),(DST-PORT,443)), REJECT
 ^https?:\/\/dsa-mfp\.fengshows\.cn\/mfp\/mfpMultipleDelivery\.do\?.+?adunitid - reject
 ^https?:\/\/dsp-impr2\.youdao\.com\/adload - reject-200
 ^https?:\/\/dsp\-x\.jd\.com\/adx\/sdk - reject
+^https?:\/\/dsp\.fcbox\.com\/adSearch\/get\? - reject
 ^https?:\/\/dsp\.toutiao\.com\/api\/xunfei\/ads\/ - reject
 ^https?:\/\/dsp\.toutiao\.com\/api\/xunfei\/ads\/ - reject-200
 ^https?:\/\/dss0\.bdstatic\.com\/-0U0bnSm1A5BphGlnYG\/ - reject-200
@@ -755,6 +754,7 @@ AND, ((PROTOCOL,UDP),(DST-PORT,443)), REJECT
 ^https?:\/\/evs\.500\.com\/esinfo\/loading\/loading - reject
 ^https?:\/\/explorer\.tratao\.com\/api\/client\/v4\/xtransfer\/ad\/ - reject
 ^https?:\/\/ext-svc\.xiaopeng\.com\/api\/log\/open\/get\/image - reject-dict
+^https?:\/\/external\.fcbox\.com\/wxgw\/post\/suggestion\/query - reject
 ^https?:\/\/facade-api\.black-unique\.com\/advertise\/v1\/get\?.* - reject-dict
 ^https?:\/\/facade-api\.black-unique\.com\/advertise\/v1\/get\?cityId=102923&positions=mine_popup - reject-dict
 ^https?:\/\/facade-api\.black-unique\.com\/app\/v1\/startScreen\?.* - reject-dict
