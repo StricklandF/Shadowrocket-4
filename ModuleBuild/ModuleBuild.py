@@ -38,7 +38,7 @@ def build_sgmodule(rule_text, project_name):
     rewrite_pattern = r'^(?!.*[#;])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
     echo_pattern = r'^(?!.*[#;])(.*?)\s*url\s+(echo-response)\s+(\S+)\s+(echo-response)\s+(\S+)'
     header_pattern = r'^(?!.*[#;])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
-    jq_pattern = r'^(?!.*[#;])\s*(.*?)\s+url\s+jsonjq-response-body\s+(?:\'([^\']+)\'|jq-path="([^"]+)")'
+    jq_pattern = r'^(?!.*[#;])(.*?)\s+url\s+jsonjq-response-body\s+(?:\'([^\']+)\'|jq-path="([^"]+)")'
     script_pattern = r'^(?!.*[#;])(.*?)\s*url\s+(script-(?:response|request)-(?:body|header)|script-echo-response|script-analyze-echo-response)\s+(\S+)'
     body_pattern = r'^(?!.*[#;])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
     mitm_pattern = r'^\s*hostname\s*=\s*([^\n#]*)\s*(?=#|$)'
