@@ -1,5 +1,5 @@
 #!name=融合模块
-#!desc=2025-06-10 10:07:44
+#!desc=2025-06-10 10:22:39
 
 [Rule]
 AND, ((PROTOCOL,UDP),(DST-PORT,443)), REJECT
@@ -1589,6 +1589,8 @@ http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:list|show|eve
 http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\? 'if .data.items then .data.items |= map(select((.banner_item == null) and (.ad_info == null) and (.card_goto == "av") and (.card_type | IN("small_cover_v2", "large_cover_single_v9", "large_cover_v1")))) end'
 http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\/story\? 'if .data.items then .data.items |= map(select((.ad_info == null) and (.card_goto | startswith("ad") | not)) | del(.story_cart_icon, .free_flow_toast)) end'
 http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? '.data.vip |= if . != null and .status == 0 then . + { status: 1, type: 2, due_date: 9005270400000, role: 15 } else . end'
+http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? jq-path="https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bilibili.tab.jq"
+http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/mine(?:\/ipad)?\? jq-path="https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bilibili.mine.jq"
 
 [Script]
 12306 =type=http-request, pattern=^https?:\/\/ad\.12306\.cn\/ad\/ser\/getAdList, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/12306.js, requires-body=true, max-size=0
