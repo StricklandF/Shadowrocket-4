@@ -1,5 +1,5 @@
 #!name=融合模块
-#!desc=2025-06-10 09:24:53
+#!desc=2025-06-10 09:35:50
 
 [Rule]
 AND, ((PROTOCOL,UDP),(DST-PORT,443)), REJECT
@@ -319,6 +319,9 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/api\.applovefrom\.com\/api\/v\d\/splash\/ - reject
 ^https?:\/\/api\.babytree\.com\/api\/(advertising|mobile_activity) - reject
 ^https?:\/\/api\.babytree\.com\/preg_intf\/index_content\/index_banner - reject
+^https?:\/\/api\.bilibili\.com\/x\/mengqi\/v\d\/resource\? - reject-dict
+^https?:\/\/api\.bilibili\.com\/x\/v\d\/dm\/qoe\/show\? - reject-dict
+^https?:\/\/api\.bilibili\.com\/x\/web-interface\/zone\?jsonp - reject-dict
 ^https?:\/\/api\.bjxkhc\.com\/index\.php\/app\/ios\/ads\/ - reject
 ^https?:\/\/api\.bjxkhc\.com\/index\.php\/app\/ios\/pay/ok$ - reject-dict
 ^https?:\/\/api\.bjxkhc\.com\/index\.php\/app\/ios\/ver/index_ios$ - reject
@@ -529,6 +532,7 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/app\.api\.d3yuiw4\.com\/api\/app\/ad - reject
 ^https?:\/\/app\.api\.versa-ai\.com\/launch\/ads\? - reject-200
 ^https?:\/\/app\.badmintoncn\.com\/mag\/operative\/v\d\/ad\/listNotEndByPlace\?place=first_page - reject-200
+^https?:\/\/app\.bilibili\.com\/x\/resource\/ip - reject-dict
 ^https?:\/\/app\.ceair\.com\/customize\/main\/adScreen - reject-dict
 ^https?:\/\/app\.ceair\.com\/customize\/security\/update - reject-200
 ^https?:\/\/app\.chinahxzq\.com\.cn:9302\/starway-api\/ad - reject-dict
