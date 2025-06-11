@@ -100,13 +100,7 @@ def build_sgmodule(rule_text, project_name):
         filename = filename_match.group(1).strip() if filename_match else script_path
         script_type = 'response' if script_type_raw in ['script-response-body', 'script-echo-response', 'script-response-header'] else 'request'
         needbody = "true" if script_type_raw in ['script-response-body', 'script-echo-response', 'script-response-header', 'script-request-body', 'script-analyze-echo-response'] else "false"
-        params = [
-            f"{filename} =type=http-{script_type}",
-            f"pattern={pattern}",
-            f"script-path={script_path}",
-            f"requires-body={needbody}",
-            "max-size=0"
-        ]
+        params = [f"{filename} =type=http-{script_type}", f"pattern={pattern}", f"script-path={script_path}", f"requires-body={needbody}", "max-size=0"]
         line_start = match.start()
         line_end = rule_text.find('\n', line_start)
         line = rule_text[line_start:line_end if line_end != -1 else None]
