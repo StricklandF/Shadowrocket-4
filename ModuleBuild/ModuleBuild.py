@@ -34,7 +34,7 @@ def load_source(url):
 
 def build_sgmodule(rule_text, project_name):
     formatted_time = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
-    rule_pattern = r'^(?!.*[#])(AND|DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR6?|URL-REGEX),'
+    rule_pattern = r'^(?!.*[#])(AND|DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|URL-REGEX),'
     rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
     header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
     jq_pattern = r'^(?!.*[#])(.*?)\s+url\s+jsonjq-response-body\s+(?:\'([^\']+)\'|jq-path="([^"]+)")'
