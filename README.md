@@ -38,7 +38,7 @@ WeChat/Telegram：**即时通讯工具**类已单独分流，降低因策略变�
 基础配置默认规则如下：<br>
 Telegram使用**新加坡节点**，Google、AI工具使用**美国节点**；<br>
 国内应用直接连接，其他规则及未匹配到的规则使用**香港节点**；<br>
-为了保证完全接管流量，本配置默认使用**香港节点**兜底，首页的节点选择将被分组替代，完全失效；<br>
+为了保证完全接管流量，本配置默认使用**代理分组**进行兜底，首页的节点选择将被分组替代，完全失效；<br>
 此配置是最适合大众的配置，添加后无需调整，如节点包含**港美新**，建议首选此配置！<br>
 
 [![一键安装 基础配置](https://img.shields.io/static/v1?label=一键安装&message=Rules.conf&color=grey&logo=googledocs&logoColor=white&labelColor=orange&messageColor=white)](https://lowertop.github.io/Shadowrocket-First/redirect.html?url=shadowrocket://config/add/https://xiangwanguan.github.io/Shadowrocket/Rules.conf "一键安装：基础配置")<br>
