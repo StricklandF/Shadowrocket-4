@@ -1,8 +1,10 @@
 #!name=融合模块
-#!desc=2025-06-10 11:37:47
+#!desc=2025-06-11 13:04:54
 
 [Rule]
-AND, ((PROTOCOL,UDP),(DST-PORT,443)), REJECT
+AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN,youtubei.googleapis.com)), REJECT
+AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,googlevideo.com)), REJECT
+AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,xiaohongshu.com)), REJECT
 DOMAIN, api.biliapi.com, REJECT
 DOMAIN, api.biliapi.net, REJECT
 DOMAIN, app.biliapi.com, REJECT
