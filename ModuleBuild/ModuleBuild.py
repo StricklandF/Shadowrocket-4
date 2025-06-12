@@ -58,9 +58,11 @@ def build_sgmodule(rule_text, project_name):
     priority_list = ['AND,', 'DOMAIN,', 'DOMAIN-SUFFIX,', 'DOMAIN-KEYWORD,', 'IP-CIDR,', 'URL-REGEX,']
     rule_lines.sort(key=lambda x: (
         next((i for i, p in enumerate(priority_list) if x.startswith(p)), 6),
-        [int(o) for o in x.split(',')[1].split('/')[0].split('.')] if x.startswith('IP-CIDR,') and ':' not in x.split(',')[1] else
-        ([ord(c) - ord('0') if '0' <= c <= '9' else ord(c) - ord('a') + 10 if 'a' <= c <= 'z' else 999
-        for c in x.split(',')[1].split('/')[0].lower().replace(':', '').ljust(32, '0')] if x.startswith('IP-CIDR,') else [9999]*8),
+        (
+            lambda ip: [int(o) for o in ip.split('.')] if ':' not in ip else
+            [ord(c) - ord('0') if '0' <= c <= '9' else ord(c) - ord('a') + 10 if 'a' <= c <= 'z' else 999
+            for c in ip.lower().replace(':', '').ljust(32, '0')]
+        )(x.split(',')[1].split('/')[0]) if x.startswith('IP-CIDR,') else [9999]*8,
         x.upper()
     ))
     sgmodule_content += '\n'.join(rule_lines) + '\n'
