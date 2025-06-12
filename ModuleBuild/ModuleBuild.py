@@ -34,10 +34,10 @@ def load_source(url):
 
 def build_sgmodule(rule_text, project_name):
     formatted_time = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
-    rule_pattern = r'^(?!.*[#])(AND|DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|URL-REGEX),'
+    rule_pattern = r'^(?!.*[#])(.*?)\s*(AND|DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|URL-REGEX),'
     rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
     header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
-    jq_pattern = r'^(?!.*[#])(.*?)\s+url\s+jsonjq-response-body\s+(?:\'([^\']+)\'|jq-path="([^"]+)")'
+    jq_pattern = r'^(?!.*[#])(.*?)\s*url\s+jsonjq-response-body\s+(?:\'([^\']+)\'|jq-path="([^"]+)")'
     script_pattern = r'^(?!.*[#])(.*?)\s*url\s+(script-(?:response|request)-(?:body|header)|script-echo-response|script-analyze-echo-response)\s+(\S+)'
     body_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
     mitm_pattern = r'^\s*hostname\s*=\s*([^\n#]*)\s*(?=#|$)'
