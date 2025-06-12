@@ -54,7 +54,20 @@ def build_sgmodule(rule_text, project_name):
             continue
         if re.match(rule_pattern, line):
             rule_lines.append(line)
-    rule_lines = sorted(set(rule_lines), key=lambda x: x.upper())
+    rule_lines = list(set(rule_lines))
+    rule_lines.sort(key=lambda x: (
+        0 if x.startswith('AND,') else
+        1 if x.startswith('DOMAIN,') else
+        2 if x.startswith('DOMAIN-SUFFIX,') else
+        3 if x.startswith('DOMAIN-KEYWORD,') else
+        4 if x.startswith('IP-CIDR,') else
+        5 if x.startswith('URL-REGEX,') else
+        6,
+        [
+            int(p) for p in x.split(',')[1].split('/')[0].split('.')
+        ] if x.startswith('IP-CIDR,') and ':' not in x.split(',')[1] else [9999] * 8,
+        x.upper()
+    ))
     sgmodule_content += '\n'.join(rule_lines) + '\n'
 
     sgmodule_content += f"""
