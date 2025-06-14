@@ -60,8 +60,7 @@
     </style>
 </head>
 <body>
-    <h1>即将自动跳转至Shadowrocket</h1>
-    <p id="message">若未自动跳转，请点击下方按钮！</p>
+    <h1>即将跳转至Shadowrocket</h1>
     <a id="redirect-link" href="#" style="display:none;">点击此处 立即跳转</a>
 
     <script>
@@ -92,13 +91,13 @@
             redirectLink.href = targetUrl;
             redirectLink.style.display = 'inline-block';
 
-            message.textContent = '即将跳转至目标页面，请稍候...';
+            message.textContent = '即将跳转至Shadowrocket，请稍候...';
 
             setTimeout(() => {
                 window.location.href = targetUrl;
             }, 1500);
         } else {
-            message.textContent = '无效的链接，无法跳转。请检查 URL 参数是否正确。';
+            message.textContent = '无效的链接！检查 URL 参数是否正确。';
         }
     </script>
 </body>
