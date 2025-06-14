@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>URL Redirect</title>
     <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg" type="image/svg+xml" />
 
@@ -44,21 +44,21 @@
         }
 
         h1 {
-            font-size: 1.5em;
+            font-size: 1.5rem;
             color: var(--text-color);
             margin: 0 0 20px;
         }
 
         #message {
-            font-size: 1em;
+            font-size: 1rem;
             color: var(--subtext-color);
             margin: 0 0 30px;
         }
 
         a#redirect-link {
-            display: inline-block;
+            display: none;
             padding: 9px 18px;
-            font-size: 0.9em;
+            font-size: 0.9rem;
             background-color: var(--link-bg);
             color: white;
             text-decoration: none;
@@ -75,7 +75,7 @@
 <body>
     <h1 id="title">即将打开Shadowrocket</h1>
     <p id="message"></p>
-    <a id="redirect-link" href="#" style="display:none;">点击此处 立即跳转</a>
+    <a id="redirect-link" href="#">点击此处 立即跳转</a>
 
     <script>
         function getQueryParam(param) {
@@ -95,25 +95,30 @@
             return /^[a-zA-Z][a-zA-Z0-9+\-.]*:/.test(url);
         }
 
-        const rawUrl = getQueryParam('url');
-        const targetUrl = decodeUrl(rawUrl);
-        const redirectLink = document.getElementById('redirect-link');
-        const message = document.getElementById('message');
-        const title = document.getElementById('title');
+        function initRedirect() {
+            const rawUrl = getQueryParam('url');
+            const targetUrl = decodeUrl(rawUrl);
 
-        if (targetUrl && isValidUrlScheme(targetUrl)) {
-            redirectLink.href = targetUrl;
-            redirectLink.style.display = 'inline-block';
-            message.textContent = '';
-            title.style.display = 'block';
+            const redirectLink = document.getElementById('redirect-link');
+            const message = document.getElementById('message');
+            const title = document.getElementById('title');
 
-            setTimeout(() => {
-                window.location.href = targetUrl;
-            }, 1500);
-        } else {
-            message.textContent = '无效的链接，请检查参数是否正确！';
-            title.style.display = 'none';
+            if (targetUrl && isValidUrlScheme(targetUrl)) {
+                redirectLink.href = targetUrl;
+                redirectLink.style.display = 'inline-block';
+                title.style.display = 'block';
+                message.textContent = '';
+
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 1500);
+            } else {
+                title.style.display = 'none';
+                message.textContent = '无效的链接，请检查参数是否正确！';
+            }
         }
+
+        window.addEventListener('DOMContentLoaded', initRedirect);
     </script>
 </body>
 </html>
