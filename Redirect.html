@@ -13,7 +13,6 @@
             --link-bg: #007aff;
             --link-hover: #0051ba;
         }
-
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-color: #1e1e1e;
@@ -23,7 +22,6 @@
                 --link-hover: #006fde;
             }
         }
-
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -32,28 +30,25 @@
             background: var(--bg-color);
             color: var(--text-color);
         }
-
         h1 {
+            font-size: 1.5em;
             color: var(--text-color);
         }
-
         #message {
-            margin-top: 20px;
-            font-size: 16px;
+            font-size: 1em;
             color: var(--subtext-color);
         }
-
         a#redirect-link {
             display: inline-block;
             margin-top: 30px;
-            padding: 12px 24px;
+            padding: 8px 18px;
+            font-size: 0.9em;
             background-color: var(--link-bg);
             color: white;
             text-decoration: none;
             border-radius: 6px;
             transition: background-color 0.3s ease;
         }
-
         a#redirect-link:hover {
             background-color: var(--link-hover);
         }
@@ -63,13 +58,11 @@
     <h1>正在跳转至Shadowrocket</h1>
     <p id="message"></p>
     <a id="redirect-link" href="#" style="display:none;">点击此处 立即跳转</a>
-
     <script>
         function getQueryParam(param) {
             const params = new URLSearchParams(window.location.search);
             return params.get(param);
         }
-
         function decodeUrl(url) {
             try {
                 return decodeURIComponent(url);
@@ -77,17 +70,13 @@
                 return url;
             }
         }
-
         function isValidUrlScheme(url) {
             return /^[a-zA-Z][a-zA-Z0-9+\-.]*:/.test(url);
         }
-
         const rawUrl = getQueryParam('url');
         const targetUrl = decodeUrl(rawUrl);
-
         const redirectLink = document.getElementById('redirect-link');
         const message = document.getElementById('message');
-
         if (targetUrl && isValidUrlScheme(targetUrl)) {
             redirectLink.href = targetUrl;
             redirectLink.style.display = 'inline-block';
