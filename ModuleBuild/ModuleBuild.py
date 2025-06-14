@@ -3,6 +3,7 @@ import re
 import shlex
 import datetime
 import requests
+import ipaddress
 
 def load_source(url):
     if os.path.isfile(url):
@@ -35,7 +36,7 @@ def load_source(url):
 
 def build_sgmodule(rule_text, project_name):
     formatted_time = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
-    rule_pattern = r'^(?!.*[#])(.*?)\s*(AND|DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|URL-REGEX),'
+    rule_pattern = r'^(?!.*[#])(.*?)\s*(DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|AND|URL-REGEX),'
     rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
     header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
     maplocal_pattern = r'^\s*(?!.*#)(.*?)\s*mock-response-body\s+(.*)$'
@@ -49,22 +50,18 @@ def build_sgmodule(rule_text, project_name):
 
 [Rule]
 """
+    priority_list = ['DOMAIN,', 'DOMAIN-SUFFIX,', 'DOMAIN-KEYWORD,', 'IP-CIDR,', 'AND,', 'URL-REGEX,']
+    priority_index = {p: i for i, p in enumerate(priority_list)}
     rule_lines = []
     for line in rule_text.splitlines():
         line = line.strip()
-        if not line:
-            continue
-        if re.match(rule_pattern, line):
+        if line and re.match(rule_pattern, line):
             rule_lines.append(line)
     rule_lines = list(set(rule_lines))
-    priority_list = ['AND,', 'DOMAIN,', 'DOMAIN-SUFFIX,', 'DOMAIN-KEYWORD,', 'IP-CIDR,', 'URL-REGEX,']
     rule_lines.sort(key=lambda x: (
-        next((i for i, p in enumerate(priority_list) if x.startswith(p)), 6),
-        (
-            lambda ip: [int(o) for o in ip.split('.')] if ':' not in ip else
-            [ord(c) - ord('0') if '0' <= c <= '9' else ord(c) - ord('a') + 10 if 'a' <= c <= 'z' else 999
-            for c in ip.lower().replace(':', '').ljust(32, '0')]
-        )(x.split(',')[1].split('/')[0]) if x.startswith('IP-CIDR,') else [9999]*8,
+        priority_index.get(next((p for p in priority_list if x.startswith(p)), ''), len(priority_list)),
+        list(ipaddress.ip_address(x.split(',')[1].split('/')[0].strip()).packed)
+        if x.startswith('IP-CIDR,') and ',' in x and '/' in x else [999] * 16,
         x.upper()
     ))
     sgmodule_content += '\n'.join(rule_lines) + '\n'

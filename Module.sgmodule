@@ -1,10 +1,7 @@
 #!name=融合模块
-#!desc=2025-06-14 12:34:28
+#!desc=2025-06-14 13:13:38
 
 [Rule]
-AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN,youtubei.googleapis.com)), REJECT-NO-DROP
-AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,googlevideo.com)), REJECT-NO-DROP
-AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,xiaohongshu.com)), REJECT-NO-DROP
 DOMAIN, api.biliapi.com, REJECT
 DOMAIN, api.biliapi.net, REJECT
 DOMAIN, app.biliapi.com, REJECT
@@ -27,6 +24,7 @@ DOMAIN, mqtt.zhihu.com, REJECT
 DOMAIN, music.httpdns.c.163.com, REJECT
 DOMAIN, sugar.zhihu.com, REJECT
 DOMAIN, zxid-m.mobileservice.cn, REJECT
+IP-CIDR, 2402:4e00:1200:ed00:0:9089:6dac:96b6/128, REJECT, no-resolve
 IP-CIDR, 59.111.239.61/32, REJECT, no-resolve
 IP-CIDR, 59.111.239.62/32, REJECT, no-resolve
 IP-CIDR, 103.41.167.237/32, REJECT, no-resolve
@@ -34,7 +32,9 @@ IP-CIDR, 115.236.121.51/32, REJECT, no-resolve
 IP-CIDR, 115.236.121.195/32, REJECT, no-resolve
 IP-CIDR, 118.89.204.198/32, REJECT, no-resolve
 IP-CIDR, 180.76.76.200/32, REJECT, no-resolve
-IP-CIDR, 2402:4e00:1200:ed00:0:9089:6dac:96b6/128, REJECT, no-resolve
+AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN,youtubei.googleapis.com)), REJECT-NO-DROP
+AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,googlevideo.com)), REJECT-NO-DROP
+AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,xiaohongshu.com)), REJECT-NO-DROP
 URL-REGEX, ^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH, REJECT-DICT
 URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 
