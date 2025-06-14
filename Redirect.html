@@ -16,11 +16,11 @@
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-color: #121212;
-                --text-color: #f0f0f0;
-                --subtext-color: #aaaaaa;
-                --link-bg: #1a73e8;
-                --link-hover: #185abc;
+                --bg-color: #1e1e1e;
+                --text-color: #e0e0e0;
+                --subtext-color: #888888;
+                --link-bg: #3399ff;
+                --link-hover: #66b2ff;
             }
         }
 
@@ -31,10 +31,17 @@
             margin: 0;
             background: var(--bg-color);
             color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         h1 {
             color: var(--text-color);
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.8rem;
         }
 
         #message {
@@ -52,6 +59,9 @@
             text-decoration: none;
             border-radius: 6px;
             transition: background-color 0.3s ease;
+            font-weight: 600;
+            font-size: 1rem;
+            user-select: none;
         }
 
         a#redirect-link:hover {
@@ -92,7 +102,7 @@
             redirectLink.href = targetUrl;
             redirectLink.style.display = 'inline-block';
 
-            message.textContent = '即将跳转至Shadowrocket，请稍候...';
+            message.textContent = '即将跳转，请稍后...';
 
             setTimeout(() => {
                 window.location.href = targetUrl;
