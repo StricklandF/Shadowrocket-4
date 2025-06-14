@@ -39,7 +39,7 @@ def build_sgmodule(rule_text, project_name):
     rule_pattern = r'^(?!.*[#])(.*?)\s*(DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|AND|URL-REGEX),'
     rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
     header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
-    maplocal_pattern = r'^\s*(?!.*#)(.*?)\s*mock-response-body\s+(.*)$'
+    maplocal_pattern = r'^(?!.*[#])(.*?)\s*mock-response-body\s+(.*)$'
     jq_pattern = r'^(?!.*[#])(.*?)\s*response-body-json-jq\s+(?:\'([^\']+)\'|jq-path="([^"]+)")'
     script_pattern = r'^(?!.*[#])(.*?)\s*url\s+(script-(?:response|request)-(?:body|header)|script-echo-response|script-analyze-echo-response)\s+(\S+)'
     body_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
