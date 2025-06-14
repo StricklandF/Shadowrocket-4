@@ -31,17 +31,10 @@
             margin: 0;
             background: var(--bg-color);
             color: var(--text-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
 
         h1 {
             color: var(--text-color);
-            margin: 0;
-            font-weight: 600;
-            font-size: 1.8rem;
         }
 
         #message {
@@ -59,9 +52,6 @@
             text-decoration: none;
             border-radius: 6px;
             transition: background-color 0.3s ease;
-            font-weight: 600;
-            font-size: 1rem;
-            user-select: none;
         }
 
         a#redirect-link:hover {
@@ -71,7 +61,7 @@
 </head>
 <body>
     <h1>即将跳转至Shadowrocket</h1>
-    <p id="message">若未自动跳转，请点击下方按钮！</p>
+    <p id="message"></p>
     <a id="redirect-link" href="#" style="display:none;">点击此处 立即跳转</a>
 
     <script>
@@ -101,9 +91,7 @@
         if (targetUrl && isValidUrlScheme(targetUrl)) {
             redirectLink.href = targetUrl;
             redirectLink.style.display = 'inline-block';
-
-            message.textContent = '即将跳转，请稍后...';
-
+            message.textContent = '';
             setTimeout(() => {
                 window.location.href = targetUrl;
             }, 1500);
