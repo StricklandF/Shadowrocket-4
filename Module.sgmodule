@@ -1,5 +1,5 @@
 #!name=融合模块
-#!desc=2025-06-12 13:48:41
+#!desc=2025-06-14 12:34:28
 
 [Rule]
 AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN,youtubei.googleapis.com)), REJECT-NO-DROP
@@ -39,6 +39,7 @@ URL-REGEX, ^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{
 URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 
 [URL Rewrite]
+^https:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v1\/ecommerce-user\/get_shopping_info\? - reject-dict
 ^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/music\/common\/upload\/t_splash_info\/ - reject
 ^https?:\/\/(?:gmp|wallet)\.lakala\.com\/(?:gmp\/openapi\/v2\/resource_space\/getResourceSpace|m\/(?:a\/lama\/mgt\/activity\/biz\/query\/byMerInfo|lama\/mgt\/activity\/(?:bank|biz)\/query\/list)) - reject-dict
 ^https?:\/\/(adse\.wsa|adse|adbehavior|xdcs-collector)\.ximalaya\.com\/.* - reject
@@ -321,9 +322,6 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/api\.applovefrom\.com\/api\/v\d\/splash\/ - reject
 ^https?:\/\/api\.babytree\.com\/api\/(advertising|mobile_activity) - reject
 ^https?:\/\/api\.babytree\.com\/preg_intf\/index_content\/index_banner - reject
-^https?:\/\/api\.bilibili\.com\/x\/mengqi\/v\d\/resource\? - reject-dict
-^https?:\/\/api\.bilibili\.com\/x\/v\d\/dm\/qoe\/show\? - reject-dict
-^https?:\/\/api\.bilibili\.com\/x\/web-interface\/zone\?jsonp - reject-dict
 ^https?:\/\/api\.bjxkhc\.com\/index\.php\/app\/ios\/ads\/ - reject
 ^https?:\/\/api\.bjxkhc\.com\/index\.php\/app\/ios\/pay/ok$ - reject-dict
 ^https?:\/\/api\.bjxkhc\.com\/index\.php\/app\/ios\/ver/index_ios$ - reject
@@ -387,7 +385,6 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/api\.k\.sohu\.com\/api\/channel\/ad\/ - reject-img
 ^https?:\/\/api\.k\.sohu\.com\/api\/news\/adsense - reject-200
 ^https?:\/\/api\.laifeng\.com\/v\d\/start\/ads - reject
-^https?:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v1\/ecommerce-user\/get_shopping_info\? - reject-dict
 ^https?:\/\/api\.m\.jd\.com\/\?loginType=11 - reject-dict
 ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=getWidgetV1052 - reject
 ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start - reject-img
@@ -534,7 +531,6 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/app\.api\.d3yuiw4\.com\/api\/app\/ad - reject
 ^https?:\/\/app\.api\.versa-ai\.com\/launch\/ads\? - reject-200
 ^https?:\/\/app\.badmintoncn\.com\/mag\/operative\/v\d\/ad\/listNotEndByPlace\?place=first_page - reject-200
-^https?:\/\/app\.bilibili\.com\/x\/resource\/ip - reject-dict
 ^https?:\/\/app\.ceair\.com\/customize\/main\/adScreen - reject-dict
 ^https?:\/\/app\.ceair\.com\/customize\/security\/update - reject-200
 ^https?:\/\/app\.chinahxzq\.com\.cn:9302\/starway-api\/ad - reject-dict
@@ -1585,16 +1581,21 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/ztoread\.ziroom\.com\/ymerApi\/v\d\/index\/open - reject-dict
 ^https?:\/\/zua\.zhidiantianxia\.cn\/api\/adverts - reject
 
+[Map Local]
+^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.interface\.v1\.Search\/DefaultWords$ data-type=base64 data="AAAAACkaHeaQnOe0ouinhumikeOAgeeVquWJp+aIlnVw5Li7IgAoAToAQgBKAA==" header="Content-Type:application/octet-stream"
+^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.interface\.v1\.Teenagers\/ModeStatus$ data-type=base64 data="AAAAABMKEQgCEgl0ZWVuYWdlcnMgAioA" header="Content-Type:application/octet-stream"
+^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.view\.v1\.View\/TFInfo$ data-type=base64 data="AAAAAAIIAQ==" header="Content-Type:application/octet-stream"
+^https:\/\/ap[ip]\.bilibili\.com\/x\/(?:resource\/(?:top\/activity|patch\/tab)|v2\/search\/square|vip\/ads\/materials)\? data-type=text data="{code:-404,message:-404,ttl:1,data:null}" status-code=200 header="Content-Type:text/plain"
+^https:\/\/api\.bilibili\.com\/pgc\/activity\/deliver\/material\/receive\? data-type=text data="{code:0,data:{closeType:close_win,container:[],showTime:},message:success}" status-code=200 header="Content-Type:text/plain"
+
 [Body Rewrite]
-http-response-jq ^https?:\/\/dili.sqcosmos.com\/jiekou\/mains\/p\d+.html '.album |= map(select(.id != "4154" and .id != "4165"))'
-http-response-jq ^https?:\/\/.+\.gamersky.com/.+/lists/getListElements '.listElements |= map(select(has("adCategory") | not))'
-http-response-jq ^https?:\/\/api\.bilibili\.com\/pgc\/view\/v2\/app\/season\? 'del(.data.payment)'
-http-response-jq ^https?:\/\/api\.bilibili\.com\/pgc\/page\/(?:bangumi|cinema\/tab)\? '.result.modules |= if . then map(if (.style | startswith("tip")) or (.module_id | IN(241, 1283, 1441, 1284)) then .items = [] elif .style | startswith("banner") then .items |= if . then map(select(.link | contains("play"))) else [] end elif .style | startswith("function") then .items |= if . then map(select(.blink | startswith("bilibili"))) else [] end end) end'
-http-response-jq ^https?:\/\/api\.live\.bilibili\.com\/xlive\/(?:app-interface\/v2\/index\/feed|app-room\/v1\/index\/getInfoBy(?:Room|User))\? '.data |= (del(.play_together_info, .play_together_info_v2, .activity_banner_info) | if .function_card then .function_card[] = null end | if .new_tab_info.outer_list then .new_tab_info.outer_list |= map(select(.biz_id != 33)) end | if .card_list then .card_list |= map(select(.card_type | IN("banner_v2", "activity_card_v1") | not)) end | reduce ([["show_reserve_status"], false], [["reserve_info", "show_reserve_status"], false], [["shopping_info", "is_show"], 0]) as [$path, $value] (.; if getpath($path) then setpath($path; $value) end))'
-http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:list|show|event\/list2)\? '.data |= with_entries(if .key | IN("show", "event_list") then .value = [] else . end)'
-http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\? 'if .data.items then .data.items |= map(select((.banner_item == null) and (.ad_info == null) and (.card_goto == "av") and (.card_type | IN("small_cover_v2", "large_cover_single_v9", "large_cover_v1")))) end'
-http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\/story\? 'if .data.items then .data.items |= map(select((.ad_info == null) and (.card_goto | startswith("ad") | not)) | del(.story_cart_icon, .free_flow_toast)) end'
-http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? '.data.vip |= if . != null and .status == 0 then . + { status: 1, type: 2, due_date: 9005270400000, role: 15 } else . end'
+http-response-jq ^https:\/\/api\.bilibili\.com\/pgc\/view\/v2\/app\/season\? 'del(.data.payment)'
+http-response-jq ^https:\/\/api\.bilibili\.com\/pgc\/page\/(?:bangumi|cinema\/tab)\? '.result.modules |= if . then map(if (.style | startswith("tip")) or (.module_id | IN(241, 1283, 1441, 1284)) then .items = [] elif .style | startswith("banner") then .items |= if . then map(select(.link | contains("play"))) else [] end elif .style | startswith("function") then .items |= if . then map(select(.blink | startswith("bilibili"))) else [] end end) end'
+http-response-jq ^https:\/\/api\.live\.bilibili\.com\/xlive\/(?:app-interface\/v2\/index\/feed|app-room\/v1\/index\/getInfoBy(?:Room|User))\? '.data |= (del(.play_together_info, .play_together_info_v2, .activity_banner_info) | if .function_card then .function_card[] = null end | if .new_tab_info.outer_list then .new_tab_info.outer_list |= map(select(.biz_id != 33)) end | if .card_list then .card_list |= map(select(.card_type | IN("banner_v2", "activity_card_v1") | not)) end | reduce ([["show_reserve_status"], false], [["reserve_info", "show_reserve_status"], false], [["shopping_info", "is_show"], 0]) as [$path, $value] (.; if getpath($path) then setpath($path; $value) end))'
+http-response-jq ^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:list|show|event\/list2)\? '.data |= with_entries(if .key | IN("show", "event_list") then .value = [] else . end)'
+http-response-jq ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\? 'if .data.items then .data.items |= map(select((.banner_item == null) and (.ad_info == null) and (.card_goto == "av") and (.card_type | IN("small_cover_v2", "large_cover_single_v9", "large_cover_v1")))) end'
+http-response-jq ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\/story\? 'if .data.items then .data.items |= map(select((.ad_info == null) and (.card_goto | startswith("ad") | not)) | del(.story_cart_icon, .free_flow_toast)) end'
+http-response-jq ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? '.data.vip |= if . != null and .status == 0 then . + { status: 1, type: 2, due_date: 9005270400000, role: 15 } else . end'
 http-response-jq ^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/search\/banner_list$ 'if (getpath([]) | has("data")) then (setpath(["data"]; {})) else . end'
 http-response-jq ^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/search\/hot_list$ 'if (getpath(["data"]) | has("items")) then (setpath(["data","items"]; [])) else . end'
 http-response-jq ^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v4\/search\/hint 'if (getpath(["data"]) | has("hint_words")) then (setpath(["data","hint_words"]; [])) else . end'
