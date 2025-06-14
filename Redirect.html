@@ -73,9 +73,9 @@
 </head>
 
 <body>
-    <h1 id="title">即将打开Shadowrocket</h1>
+    <h1 id="title">正在唤起Shadowrocket </h1>
     <p id="message"></p>
-    <a id="redirect-link" href="#">点击此处 立即跳转</a>
+    <a id="redirect-link" href="#">或点击此处手动跳转</a>
 
     <script>
         function getQueryParam(param) {
@@ -114,7 +114,7 @@
                 }, 1500);
             } else {
                 title.style.display = 'none';
-                message.textContent = '无效的链接，请检查参数是否正确！';
+                message.textContent = '无效！请检查参数是否正确！';
             }
         }
 
