@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Redirect</title>
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg" type="image/svg+xml">
+    <style>
+        :root {
+            --bg-color: #f7f9fc;
+            --text-color: #333;
+            --subtext-color: #666;
+            --link-bg: #007bff;
+            --link-hover: #0056b3;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --text-color: #f0f0f0;
+                --subtext-color: #aaaaaa;
+                --link-bg: #1a73e8;
+                --link-hover: #185abc;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px 10px;
+            margin: 0;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        h1 {
+            color: var(--text-color);
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 16px;
+            color: var(--subtext-color);
+        }
+
+        a#redirect-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: var(--link-bg);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        a#redirect-link:hover {
+            background-color: var(--link-hover);
+        }
+    </style>
+</head>
+<body>
+    <h1>即将自动跳转至Shadowrocket</h1>
+    <p id="message">若未自动跳转，请点击下方按钮！</p>
+    <a id="redirect-link" href="#" style="display:none;">点击此处 立即跳转</a>
+
+    <script>
+        function getQueryParam(param) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(param);
+        }
+
+        function decodeUrl(url) {
+            try {
+                return decodeURIComponent(url);
+            } catch {
+                return url;
+            }
+        }
+
+        function isValidHttpUrl(string) {
+            try {
+                const url = new URL(string);
+                return ['http:', 'https:'].includes(url.protocol);
+            } catch (_) {
+                return false;
+            }
+        }
+
+        const rawUrl = getQueryParam('url');
+        const targetUrl = decodeUrl(rawUrl);
+
+        const redirectLink = document.getElementById('redirect-link');
+        const message = document.getElementById('message');
+
+        if (targetUrl && isValidHttpUrl(targetUrl)) {
+            redirectLink.href = targetUrl;
+            redirectLink.style.display = 'inline-block';
+
+            message.textContent = '即将跳转至目标页面，请稍候...';
+
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 1500);
+        } else {
+            message.textContent = '无效的链接，无法跳转。请检查 URL 参数是否正确。';
+        }
+    </script>
+</body>
+</html>
