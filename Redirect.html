@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>URL Redirect</title>
     <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg" type="image/svg+xml" />
+
     <style>
         :root {
             --bg-color: #f7f9fc;
@@ -13,6 +14,7 @@
             --link-bg: #007aff;
             --link-hover: #0051ba;
         }
+
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-color: #1e1e1e;
@@ -22,6 +24,7 @@
                 --link-hover: #006fde;
             }
         }
+
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -30,14 +33,17 @@
             background: var(--bg-color);
             color: var(--text-color);
         }
+
         h1 {
             font-size: 1.5em;
             color: var(--text-color);
         }
+
         #message {
             font-size: 1em;
             color: var(--subtext-color);
         }
+
         a#redirect-link {
             display: inline-block;
             margin-top: 30px;
@@ -49,20 +55,24 @@
             border-radius: 6px;
             transition: background-color 0.3s ease;
         }
+
         a#redirect-link:hover {
             background-color: var(--link-hover);
         }
     </style>
 </head>
+
 <body>
     <h1>正在跳转至Shadowrocket</h1>
     <p id="message"></p>
     <a id="redirect-link" href="#" style="display:none;">点击此处 立即跳转</a>
+
     <script>
         function getQueryParam(param) {
             const params = new URLSearchParams(window.location.search);
             return params.get(param);
         }
+
         function decodeUrl(url) {
             try {
                 return decodeURIComponent(url);
@@ -70,17 +80,21 @@
                 return url;
             }
         }
+
         function isValidUrlScheme(url) {
             return /^[a-zA-Z][a-zA-Z0-9+\-.]*:/.test(url);
         }
+
         const rawUrl = getQueryParam('url');
         const targetUrl = decodeUrl(rawUrl);
         const redirectLink = document.getElementById('redirect-link');
         const message = document.getElementById('message');
+
         if (targetUrl && isValidUrlScheme(targetUrl)) {
             redirectLink.href = targetUrl;
             redirectLink.style.display = 'inline-block';
             message.textContent = '';
+
             setTimeout(() => {
                 window.location.href = targetUrl;
             }, 1500);
