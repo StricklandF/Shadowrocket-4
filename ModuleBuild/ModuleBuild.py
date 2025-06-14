@@ -89,10 +89,15 @@ def build_sgmodule(rule_text, project_name):
     map_local_lines = []
     for match in re.finditer(maplocal_pattern, rule_text, re.MULTILINE):
         regex, params_str = match.group(1).strip(), match.group(2).strip()
-        lexer = shlex.shlex(params_str, posix=True)
+        lexer = shlex.shlex(params_str, posix=False)
         lexer.whitespace_split = True
         lexer.commenters = ''
-        kv_pairs = {k: v.replace('"', '\\"') for token in lexer if '=' in token for k, v in [token.split('=', 1)]}
+        lexer.quotes = '"'
+        kv_pairs = {}
+        for token in lexer:
+            if '=' in token:
+                k, v = token.split('=', 1)
+                kv_pairs[k] = v
         data_type = kv_pairs.get('data-type', '')
         data = kv_pairs.get('data', '')
         status_code = kv_pairs.get('status-code', '')
@@ -101,6 +106,8 @@ def build_sgmodule(rule_text, project_name):
             'text': 'text/plain',
             'json': 'application/json'
         }.get(data_type, 'application/octet-stream')
+        if data.startswith('"') and data.endswith('"'):
+            data = data[1:-1]
         line = f'{regex} data-type={data_type} data="{data}"'
         if status_code:
             line += f' status-code={status_code}'
