@@ -73,7 +73,7 @@
 </head>
 
 <body>
-    <h1>正在跳转至Shadowrocket</h1>
+    <h1 id="title">即将打开Shadowrocket</h1>
     <p id="message"></p>
     <a id="redirect-link" href="#" style="display:none;">点击此处 立即跳转</a>
 
@@ -99,17 +99,20 @@
         const targetUrl = decodeUrl(rawUrl);
         const redirectLink = document.getElementById('redirect-link');
         const message = document.getElementById('message');
+        const title = document.getElementById('title');
 
         if (targetUrl && isValidUrlScheme(targetUrl)) {
             redirectLink.href = targetUrl;
             redirectLink.style.display = 'inline-block';
             message.textContent = '';
+            title.style.display = 'block';
 
             setTimeout(() => {
                 window.location.href = targetUrl;
             }, 1500);
         } else {
             message.textContent = '无效的链接，请检查参数是否正确！';
+            title.style.display = 'none';
         }
     </script>
 </body>
