@@ -1,7 +1,7 @@
 import os
 import re
-import datetime
 import shlex
+import datetime
 import requests
 
 def load_source(url):
