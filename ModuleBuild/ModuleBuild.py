@@ -1,6 +1,7 @@
 import os
 import re
 import datetime
+import shlex
 import requests
 
 def load_source(url):
@@ -37,7 +38,8 @@ def build_sgmodule(rule_text, project_name):
     rule_pattern = r'^(?!.*[#])(.*?)\s*(AND|DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|URL-REGEX),'
     rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
     header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
-    jq_pattern = r'^(?!.*[#])(.*?)\s*url\s+jsonjq-response-body\s+(?:\'([^\']+)\'|jq-path="([^"]+)")'
+    maplocal_pattern = r'^\s*(?!.*#)(.*?)\s*mock-response-body\s+(.*)$'
+    jq_pattern = r'^(?!.*[#])(.*?)\s*response-body-json-jq\s+(?:\'([^\']+)\'|jq-path="([^"]+)")'
     script_pattern = r'^(?!.*[#])(.*?)\s*url\s+(script-(?:response|request)-(?:body|header)|script-echo-response|script-analyze-echo-response)\s+(\S+)'
     body_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
     mitm_pattern = r'^\s*hostname\s*=\s*([^\n#]*)\s*(?=#|$)'
@@ -83,6 +85,31 @@ def build_sgmodule(rule_text, project_name):
     unique_lines = sorted(set(url_lines))
     url_content = '\n'.join(unique_lines)
     sgmodule_content += url_content + "\n"
+
+    sgmodule_content += f"""
+[Map Local]
+"""
+    map_local_lines = []
+    for match in re.finditer(maplocal_pattern, rule_text, re.MULTILINE):
+        regex, params_str = match.group(1).strip(), match.group(2).strip()
+        lexer = shlex.shlex(params_str, posix=True)
+        lexer.whitespace_split = True
+        lexer.commenters = ''
+        kv_pairs = {k: v.replace('"', '\\"') for token in lexer if '=' in token for k, v in [token.split('=', 1)]}
+        data_type = kv_pairs.get('data-type', '')
+        data = kv_pairs.get('data', '')
+        status_code = kv_pairs.get('status-code', '')
+        is_base64 = kv_pairs.get('mock-data-is-base64', '').lower() == 'true'
+        content_type = 'application/octet-stream' if is_base64 or data_type == 'base64' else {
+            'text': 'text/plain',
+            'json': 'application/json'
+        }.get(data_type, 'application/octet-stream')
+        line = f'{regex} data-type={data_type} data="{data}"'
+        if status_code:
+            line += f' status-code={status_code}'
+        line += f' header="Content-Type:{content_type}"'
+        map_local_lines.append(line)
+    sgmodule_content += '\n'.join(sorted(set(map_local_lines))) + '\n'
 
     sgmodule_content += f"""
 [Body Rewrite]
