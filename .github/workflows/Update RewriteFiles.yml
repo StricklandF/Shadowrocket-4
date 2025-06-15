@@ -43,9 +43,9 @@ jobs:
             curl -fsS -o "$download_filepath" "$download_url" || (echo "Retrying..." && curl -fsS -o "$download_filepath" "$download_url") || true
           done < download_file_links.list
 
-      - name: Clear previous JavaScriptCheck.md contents
+      - name: Clear previous JavaScriptBuildList.md contents
         run: |
-          > Rewrite/JavaScriptCheck.md
+          > Rewrite/JavaScriptBuildList.md
 
       - name: Preprocess Naisi Scripts
         run: |
@@ -134,11 +134,11 @@ jobs:
             fi
           done
           {
-            echo "### Update: $(TZ='Asia/Shanghai' date '+%Y-%m-%d')<br>"
+            echo "## JavaScript Build List <br>"
             echo ""
             echo "### fmz200: <br>"
             echo -e "$naisi_original_links"
-          } >> Rewrite/JavaScriptCheck.md
+          } >> Rewrite/JavaScriptBuildList.md
 
       - name: Preprocess Zirawell Scripts
         run: |
@@ -195,7 +195,7 @@ jobs:
             {
               echo "### zirawell: <br>"
               echo -e "$zirawell_original_links"
-            } >> Rewrite/JavaScriptCheck.md
+            } >> Rewrite/JavaScriptBuildList.md
           fi
 
       - name: Preprocess Local Scripts
@@ -245,7 +245,7 @@ jobs:
             {
               echo "### local: <br>"
               echo -e "$local_original_links"
-            } >> Rewrite/JavaScriptCheck.md
+            } >> Rewrite/JavaScriptBuildList.md
           fi
 
       - name: Clean up unused local script files
