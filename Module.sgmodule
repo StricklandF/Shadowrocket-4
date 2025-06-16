@@ -1,5 +1,5 @@
 #!name=融合模块
-#!desc=2025-06-16 09:34:46
+#!desc=2025-06-16 09:45:05
 
 [Rule]
 DOMAIN, api.biliapi.com, REJECT
@@ -35,8 +35,8 @@ IP-CIDR, 180.76.76.200/32, REJECT, no-resolve
 AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN,youtubei.googleapis.com)), REJECT-NO-DROP
 AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,googlevideo.com)), REJECT-NO-DROP
 AND, ((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,xiaohongshu.com)), REJECT-NO-DROP
-URL-REGEX, ^https?:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH, REJECT-DICT
-URL-REGEX, ^https?:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
+URL-REGEX, ^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH, REJECT-DICT
+URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 
 [URL Rewrite]
 ^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/music\/common\/upload\/t_splash_info\/ - reject
@@ -1647,8 +1647,8 @@ baiduPan =type=http-response, pattern=^https?:\/\/pan\.baidu\.com\/api\/getsyscf
 baiduPan =type=http-response, pattern=^https?:\/\/pan\.baidu\.com\/rest\/\d\.\d\/membership\/user, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/baiduPan.js, requires-body=true, max-size=0
 baidumap =type=http-response, pattern=^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/baidumap.js, requires-body=true, max-size=0
 bili-suit-diy =type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\?, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bili-suit-diy.js, requires-body=true, max-size=0
-bilibili.airborne =type=http-request, pattern=^https?:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bilibili.airborne.js, requires-body=true, max-size=0
-bilibili.airborne =type=http-request, pattern=^https?:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.community\.service\.dm\.v1\.DM\/DmSegMobile$, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bilibili.airborne.js, requires-body=true, max-size=0
+bilibili.airborne =type=http-request, pattern=^https?:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bilibili.airborne.js, requires-body=true, max-size=0, binary-body-mode=true
+bilibili.airborne =type=http-request, pattern=^https?:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.community\.service\.dm\.v1\.DM\/DmSegMobile$, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bilibili.airborne.js, requires-body=true, max-size=0, binary-body-mode=true
 bilibili.json =type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/(?:resource\/show\/tab\/v2|v2\/(?:splash\/(?:list|show|event\/list2)|feed\/index(?:\/story)?|account\/(?:mine(?:\/ipad)?|myinfo)))\?, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bilibili.json.js, requires-body=true, max-size=0, argument={"showUperCenter":0}
 bilibili.protobuf =type=http-response, pattern=^https?:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.(?:app\.(?:show\.v1\.Popular\/Index|dynamic\.v2\.Dynamic\/DynAll|view(?:unite)?\.v1\.View\/(?:View|ViewProgress|RelatesFeed)|playurl\.v1\.PlayURL\/PlayView|playerunite\.v1\.Player\/PlayViewUnite)|polymer\.app\.search\.v1\.Search\/SearchAll|community\.service\.dm\.v1\.DM\/DmView|main\.community\.reply\.v1\.Reply\/MainList|pgc\.gateway\.player\.v2\.PlayURL\/PlayView)$, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bilibili.protobuf.js, requires-body=true, max-size=0, binary-body-mode=true, argument={"showUpList":"false","filterTopReplies":1}
 bilibiliManga =type=http-response, pattern=^https?:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Home\/HomeFeed, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/bilibiliManga.js, requires-body=true, max-size=0
