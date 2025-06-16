@@ -40,9 +40,9 @@ def build_sgmodule(rule_text, project_name):
     rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
     header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
     maplocal_pattern = r'^(?!.*[#])(.*?)\s*mock-response-body\s+(.*)$'
-    jq_pattern = r'^(?!.*[#])(.*?)\s*response-body-json-jq\s+(?:\'([^\']+)\'|jq-path="([^"]+)")'
+    body_pattern = r'^(?!.*[#])(.*?)\s*response-body-json-jq\s+(.*)$'
     script_pattern = r'^(?!.*[#])(.*?)\s*url\s+(script-(?:response|request)-(?:body|header)|script-echo-response|script-analyze-echo-response)\s+(\S+)'
-    body_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
+    replace_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
     mitm_pattern = r'^\s*hostname\s*=\s*([^\n#]*)\s*(?=#|$)'
 
     sgmodule_content = f"""#!name={project_name}
@@ -112,16 +112,15 @@ def build_sgmodule(rule_text, project_name):
     sgmodule_content += f"""
 [Body Rewrite]
 """
-    http_response_jq = ""
-    for match in re.finditer(jq_pattern, rule_text, re.MULTILINE):
-        pattern = match.group(1).strip()
-        jq_expr = match.group(2)
-        jq_path = match.group(3)
-        if jq_expr:
-            http_response_jq += f"http-response-jq {pattern} '{jq_expr}'\n"
-        elif jq_path:
-            http_response_jq += f'http-response-jq {pattern} jq-path="{jq_path}"\n'
-    sgmodule_content += http_response_jq
+    body_jq_rules = ""
+    for match in re.finditer(body_pattern, rule_text, re.MULTILINE):
+        body_matcher = match.group(1).strip()
+        body_expr = match.group(2).strip()
+        if body_expr.startswith("'") and body_expr.endswith("'"):
+            body_jq_rules += f"http-response-jq {body_matcher} {body_expr}\n"
+        elif body_expr.startswith('jq-path="') and body_expr.endswith('"'):
+            body_jq_rules += f"http-response-jq {body_matcher} {body_expr}\n"
+    sgmodule_content += body_jq_rules
 
     sgmodule_content += f"""
 [Script]
@@ -149,7 +148,7 @@ def build_sgmodule(rule_text, project_name):
         script_content += script_line + "\n"
     script_content = '\n'.join(sorted(set(script_content.splitlines())))
     sgmodule_content += script_content + "\n"
-    for match in re.finditer(body_pattern, rule_text, re.MULTILINE):
+    for match in re.finditer(replace_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
         re1 = match.group(3).strip()
         re2 = match.group(5).strip()
