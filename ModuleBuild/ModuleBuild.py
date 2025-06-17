@@ -49,18 +49,14 @@ def build_sgmodule(rule_text, project_name):
         f"#!name={project_name}",
         f"#!desc={formatted_time}",
     ]
-    arguments = {}
-    for match in re.findall(r'^\s*#!arguments\s*=\s*(.+)', rule_text, re.MULTILINE):
-        for part in match.split(','):
-            if ':' in part:
-                k, v = map(str.strip, part.split(':', 1))
-                arguments.setdefault(k, v)
-    if arguments:
-        header_lines.append("#!arguments=" + ", ".join(f"{k}:{v}" for k, v in arguments.items()))
+    arguments_list = re.findall(r'^\s*#!arguments\s*=\s*(.+)', rule_text, re.MULTILINE)
+    arguments_list = [", ".join(part.strip() for part in line.split(',')) for line in arguments_list]
+    if arguments_list:
+        header_lines.append("#!arguments=" + ", ".join(arguments_list))
     desc_matches = re.findall(r'^\s*#!arguments-desc\s*=\s*(.+)', rule_text, re.MULTILINE)
     desc_items = [desc.strip() for line in desc_matches for desc in line.split('；') if desc.strip()]
     if desc_items:
-        header_lines.append(f"#!arguments-desc=\\n 参数说明：\\n {'；\\n '.join(desc_items)}；")
+        header_lines.append(f"#!arguments-desc=\\n 参数说明：\\n {'；\\n '.join(desc_items)}；\\n ")
     sgmodule_content = '\n'.join(header_lines) + '\n'
 
     sgmodule_content += f"""
