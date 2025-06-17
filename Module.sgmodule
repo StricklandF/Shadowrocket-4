@@ -1,7 +1,7 @@
 #!name=融合模块
-#!desc=2025-06-17 14:47:56
-#!arguments=Bilibili·动态最常访问:auto, Bilibili·创作中心:0, Bilibili·置顶评论广告:1, YouTube·屏蔽上传按钮:true, YouTube·屏蔽选段按钮:true, YouTube·屏蔽Shorts按钮:true, YouTube·字幕翻译语言:zh-Hans, YouTube·歌词翻译语言:zh-Hans, YouTube·启用调试模式:false
-#!arguments-desc=Bilibili·动态最常访问：auto自动，true显示，false隐藏；\n Bilibili·创作中心：1显示，0隐藏；\n Bilibili·置顶评论广告，1开启，0关闭；\n YouTube·字幕翻译语言：zh-Hans，off关闭；\n YouTube·歌词翻译语言：zh-Hans，off关闭；\n YouTube·屏蔽选段按钮：开, 关；\n YouTube·屏蔽上传按钮：开, 关；\n YouTube·屏蔽Shorts按钮：开, 关；\n YouTube·启用调试模式：开, 关；
+#!desc=2025-06-17 14:52:54
+#!arguments=Bilibili·创作中心:0, Bilibili·动态最常访问:auto, Bilibili·置顶评论广告:1, YouTube·屏蔽上传按钮:true, YouTube·屏蔽选段按钮:true, YouTube·屏蔽短视频按钮:true, YouTube·字幕翻译语言:zh-Hans, YouTube·歌词翻译语言:zh-Hans, YouTube·启用调试模式:false
+#!arguments-desc=Bilibili·创作中心：1显示，0隐藏；\n Bilibili·动态最常访问：auto自动，true显示，false隐藏；\n Bilibili·置顶评论广告，1开启，0关闭；\n YouTube·字幕翻译语言：zh-Hans，off关闭；\n YouTube·歌词翻译语言：zh-Hans，off关闭；
 
 [Rule]
 DOMAIN, api.biliapi.com, REJECT
@@ -1878,7 +1878,7 @@ xmly_json =type=http-response, pattern=^https?:\/\/.*\.ximalaya\.com\/discovery-
 xmly_json =type=http-response, pattern=^https?:\/\/.*\.ximalaya\.com\/focus-mobile\/focusPic, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/xmly_json.js, requires-body=true, max-size=0
 xmly_json =type=http-response, pattern=^https?:\/\/.*\.ximalaya\.com\/mobile-user\/v\d\/homePage, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/xmly_json.js, requires-body=true, max-size=0
 xunlei =type=http-response, pattern=^https?:\/\/conf-m-ssl\.xunlei\.com\/external\/, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/xunlei.js, requires-body=true, max-size=0
-youtube.response =type=http-response, pattern=^https?:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/youtube.response.js, requires-body=true, max-size=0, binary-body-mode=true, argument="{"lyricLang":"{{{YouTube·歌词翻译语言}}}","captionLang":"{{{YouTube·字幕翻译语言}}}","blockUpload":{{{YouTube·屏蔽上传按钮}}},"blockImmersive":{{{YouTube·屏蔽选段按钮}}},"blockShorts":{{{YouTube·屏蔽Shorts按钮}}},"debug":{{{YouTube·启用调试模式}}}}"
+youtube.response =type=http-response, pattern=^https?:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/youtube.response.js, requires-body=true, max-size=0, binary-body-mode=true, argument="{"lyricLang":"{{{YouTube·歌词翻译语言}}}","captionLang":"{{{YouTube·字幕翻译语言}}}","blockUpload":{{{YouTube·屏蔽上传按钮}}},"blockImmersive":{{{YouTube·屏蔽选段按钮}}},"blockShorts":{{{YouTube·屏蔽短视频按钮}}},"debug":{{{YouTube·启用调试模式}}}}"
 ys7 =type=http-response, pattern=^https?:\/\/\w+\.ys7\.com\/v\d\/valueadded\/operation\/config\/master\/station, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/ys7.js, requires-body=true, max-size=0
 yx =type=http-response, pattern=^https?:\/\/api\.ulife\.group\/market\/homeIconDetail\/list\/v7, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/yx.js, requires-body=true, max-size=0
 zhangshanggongjiao =type=http-response, pattern=^https?:\/\/wx\.mygolbs\.com\/WxBusServer\/ApiData\.do, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/zhangshanggongjiao.js, requires-body=true, max-size=0
