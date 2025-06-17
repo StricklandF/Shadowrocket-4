@@ -36,6 +36,7 @@ def load_source(url):
 
 def build_sgmodule(rule_text, project_name):
     formatted_time = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
+    arguments_pattern = r'^\s*#!arguments\s*=\s*(.+)'
     rule_pattern = r'^(?!.*[#])(.*?)\s*(DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|AND|URL-REGEX),'
     rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
     header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
@@ -45,9 +46,22 @@ def build_sgmodule(rule_text, project_name):
     replace_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
     mitm_pattern = r'^\s*hostname\s*=\s*([^\n#]*)\s*(?=#|$)'
 
-    sgmodule_content = f"""#!name={project_name}
-#!desc={formatted_time}
+    header_lines = [
+        f"#!name={project_name}",
+        f"#!desc={formatted_time}",
+    ]
+    argument_pairs = {}
+    for line in re.findall(arguments_pattern, rule_text, re.MULTILINE):
+        for part in line.split(','):
+            k, v = map(str.strip, part.split(':', 1))
+            if k not in argument_pairs:
+                argument_pairs[k] = v
+    if argument_pairs:
+        argument_line = "#!arguments=" + ", ".join(f"{k}:{v}" for k, v in argument_pairs.items())
+        header_lines.append(argument_line)
+    sgmodule_content = '\n'.join(header_lines) + '\n'
 
+    sgmodule_content += f"""
 [Rule]
 """
     priority_list = ['DOMAIN,', 'DOMAIN-SUFFIX,', 'DOMAIN-KEYWORD,', 'IP-CIDR,', 'AND,', 'URL-REGEX,']
