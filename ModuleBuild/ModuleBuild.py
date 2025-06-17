@@ -36,7 +36,6 @@ def load_source(url):
 
 def build_sgmodule(rule_text, project_name):
     formatted_time = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
-    arguments_pattern = r'^\s*#!arguments\s*=\s*(.+)'
     rule_pattern = r'^(?!.*[#])(.*?)\s*(DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|AND|URL-REGEX),'
     rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
     header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
@@ -50,15 +49,18 @@ def build_sgmodule(rule_text, project_name):
         f"#!name={project_name}",
         f"#!desc={formatted_time}",
     ]
-    argument_pairs = {}
-    for line in re.findall(arguments_pattern, rule_text, re.MULTILINE):
-        for part in line.split(','):
-            k, v = map(str.strip, part.split(':', 1))
-            if k not in argument_pairs:
-                argument_pairs[k] = v
-    if argument_pairs:
-        argument_line = "#!arguments=" + ", ".join(f"{k}:{v}" for k, v in argument_pairs.items())
-        header_lines.append(argument_line)
+    arguments = {}
+    for match in re.findall(r'^\s*#!arguments\s*=\s*(.+)', rule_text, re.MULTILINE):
+        for part in match.split(','):
+            if ':' in part:
+                k, v = map(str.strip, part.split(':', 1))
+                arguments.setdefault(k, v)
+    if arguments:
+        header_lines.append("#!arguments=" + ", ".join(f"{k}:{v}" for k, v in arguments.items()))
+    desc_matches = re.findall(r'^\s*#!arguments-desc\s*=\s*(.+)', rule_text, re.MULTILINE)
+    desc_items = [desc.strip() for line in desc_matches for desc in line.split('；') if desc.strip()]
+    if desc_items:
+        header_lines.append(f"#!arguments-desc={'；\\n '.join(desc_items)}；")
     sgmodule_content = '\n'.join(header_lines) + '\n'
 
     sgmodule_content += f"""
