@@ -102,22 +102,29 @@ def build_sgmodule(rule_text, project_name):
     sgmodule_content += f"""
 [Map Local]
 """
+    maplocal_pattern = r'^(?!.*[#])(.*?)\s*mock-response-body\s+(.*)$'
     map_local_lines = []
     for match in re.finditer(maplocal_pattern, rule_text, re.MULTILINE):
         regex, params_str = match.group(1).strip(), match.group(2).strip()
-        lexer = shlex.shlex(params_str, posix=False)
+        data_match = re.search(r'data=\s*(".*"|{.*}|[.*])', params_str)
+        if data_match:
+            data = data_match.group(1)
+            params_str_wo_data = params_str[:data_match.start()] + params_str[data_match.end():]
+        else:
+            data = ''
+            params_str_wo_data = params_str
+        lexer = shlex.shlex(params_str_wo_data, posix=False)
         lexer.whitespace_split = True
         lexer.commenters = ''
         lexer.quotes = '"'
         kv_pairs = dict(token.split('=', 1) for token in lexer if '=' in token)
         data_type = kv_pairs.get('data-type', '')
-        data = kv_pairs.get('data', '')
         status_code = kv_pairs.get('status-code', '')
         is_base64 = kv_pairs.get('mock-data-is-base64', '').lower() == 'true'
-        content_type = ('application/octet-stream' if is_base64 or data_type == 'base64' else
-                        {'text': 'text/plain', 'json': 'application/json'}.get(data_type, 'application/octet-stream'))
         if data.startswith('"') and data.endswith('"'):
             data = data[1:-1]
+        content_type = ('application/octet-stream' if is_base64 or data_type == 'base64' else
+                        {'text': 'text/plain', 'json': 'application/json'}.get(data_type, 'application/octet-stream'))
         line = f'{regex} data-type={data_type} data="{data}"'
         if status_code:
             line += f' status-code={status_code}'
