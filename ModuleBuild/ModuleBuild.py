@@ -112,8 +112,9 @@ def build_sgmodule(rule_text, project_name):
         lexer.whitespace_split = True
         lexer.commenters = ''
         lexer.quotes = '"'
+        lexer.wordchars += ':/-._'
         kv_pairs = dict(token.split('=', 1) for token in lexer if '=' in token)
-        data_type = kv_pairs.get('data-type', '')
+        data_type = kv_pairs.get('data-type', '').lower()
         status_code = kv_pairs.get('status-code', '')
         is_base64 = kv_pairs.get('mock-data-is-base64', '').lower() == 'true'
         if data.startswith('"') and data.endswith('"'):
@@ -123,7 +124,8 @@ def build_sgmodule(rule_text, project_name):
         line = f'{regex} data-type={data_type} data="{data}"'
         if status_code:
             line += f' status-code={status_code}'
-        line += f' header="Content-Type:{content_type}"'
+        if 'header' not in kv_pairs:
+            line += f' header="Content-Type:{content_type}"'
         map_local_lines.append(line)
     sgmodule_content += '\n'.join(sorted(set(map_local_lines))) + '\n'
 
