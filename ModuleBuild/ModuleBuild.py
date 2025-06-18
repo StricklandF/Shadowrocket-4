@@ -72,6 +72,10 @@ def build_sgmodule(rule_text, project_name):
     rule_lines = list(set(rule_lines))
     rule_lines.sort(key=lambda x: (
         priority_index.get(next((p for p in priority_list if x.startswith(p)), ''), len(priority_list)),
+        0 if (x.startswith('IP-CIDR,') and ',' in x and '/' in x and
+            ipaddress.ip_address(x.split(',')[1].split('/')[0].strip()).version == 4) else
+        1 if (x.startswith('IP-CIDR,') and ',' in x and '/' in x and
+            ipaddress.ip_address(x.split(',')[1].split('/')[0].strip()).version == 6) else 2,
         list(ipaddress.ip_address(x.split(',')[1].split('/')[0].strip()).packed)
         if x.startswith('IP-CIDR,') and ',' in x and '/' in x else [999] * 16,
         x.upper()
