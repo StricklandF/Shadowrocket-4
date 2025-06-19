@@ -181,8 +181,14 @@ def build_sgmodule(rule_text, project_name):
 
     sgmodule_content += f"""
 [MITM]
-hostname = %APPEND% {mitm_match_content}
 """
+    mitm_matches = set()
+    for match in re.finditer(mitm_pattern, rule_text, re.MULTILINE):
+        hostnames = match.group(1).split(',')
+        mitm_matches.update(host.strip() for host in hostnames if host.strip())
+    mitm_match_content = ','.join(sorted(mitm_matches))
+    sgmodule_content += f"hostname = %APPEND% {mitm_match_content}\n"
+
     return sgmodule_content
 
 def generate_sgmodule(rule_sources, project_name, parent_dir):
