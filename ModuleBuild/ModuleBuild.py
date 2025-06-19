@@ -36,14 +36,12 @@ def load_source(url):
 
 def build_sgmodule(rule_text, project_name):
     formatted_time = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
-    rule_pattern = r'^(?!.*[#])(.*?)\s*(DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|AND|URL-REGEX),'
-    rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
-    header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
-    maplocal_pattern = r'^(?!.*[#])(.*?)\s*mock-response-body\s+(.*)$'
-    body_pattern = r'^(?!.*[#])(.*?)\s*response-body-json-jq\s+(.*)$'
-    script_pattern = r'^(?!.*[#])(.*?)\s*url\s+(script-(?:response|request)-(?:body|header)|script-echo-response|script-analyze-echo-response)\s+(\S+)'
-    replace_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
-    mitm_pattern = r'^\s*hostname\s*=\s*([^\n#]*)\s*(?=#|$)'
+    
+
+    
+    
+
+    
 
     header_lines = [
         f"#!name={project_name}",
@@ -62,6 +60,7 @@ def build_sgmodule(rule_text, project_name):
     sgmodule_content += f"""
 [Rule]
 """
+    rule_pattern = r'^(?!.*[#])(.*?)\s*(DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|AND|URL-REGEX),'
     priority_list = ['DOMAIN,', 'DOMAIN-SUFFIX,', 'DOMAIN-KEYWORD,', 'IP-CIDR,', 'AND,', 'URL-REGEX,']
     priority_index = {p: i for i, p in enumerate(priority_list)}
     rule_lines = []
@@ -85,6 +84,8 @@ def build_sgmodule(rule_text, project_name):
     sgmodule_content += f"""
 [URL Rewrite]
 """
+    rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
+    header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
     url_content = ""
     for match in re.finditer(rewrite_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
@@ -102,6 +103,7 @@ def build_sgmodule(rule_text, project_name):
     sgmodule_content += f"""
 [Map Local]
 """
+    maplocal_pattern = r'^(?!.*[#])(.*?)\s*mock-response-body\s+(.*)$'
     map_local_lines = []
     for match in re.finditer(maplocal_pattern, rule_text, re.MULTILINE):
         regex, params_str = match.group(1).strip(), match.group(2).strip()
@@ -132,6 +134,7 @@ def build_sgmodule(rule_text, project_name):
     sgmodule_content += f"""
 [Body Rewrite]
 """
+    body_pattern = r'^(?!.*[#])(.*?)\s*response-body-json-jq\s+(.*)$'
     body_jq_rules = ""
     for match in re.finditer(body_pattern, rule_text, re.MULTILINE):
         body_matcher = match.group(1).strip()
@@ -145,6 +148,8 @@ def build_sgmodule(rule_text, project_name):
     sgmodule_content += f"""
 [Script]
 """
+    script_pattern = r'^(?!.*[#])(.*?)\s*url\s+(script-(?:response|request)-(?:body|header)|script-echo-response|script-analyze-echo-response)\s+(\S+)'
+    replace_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
     script_content = ""
     for match in re.finditer(script_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
@@ -173,15 +178,11 @@ def build_sgmodule(rule_text, project_name):
         re1 = match.group(3).strip()
         re2 = match.group(5).strip()
         sgmodule_content += f"ReplaceBody =type=http-response, pattern={pattern}, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/ReplaceBody.js, requires-body=true, argument={re1}->{re2},max-size=0\n"
-    mitm_matches = set()
-    for match in re.finditer(mitm_pattern, rule_text, re.MULTILINE):
-        hostnames = match.group(1).split(',')
-        mitm_matches.update(host.strip() for host in hostnames if host.strip())
-    mitm_match_content = ','.join(sorted(mitm_matches))
 
     sgmodule_content += f"""
 [MITM]
 """
+    mitm_pattern = r'^\s*hostname\s*=\s*([^\n#]*)\s*(?=#|$)'
     mitm_matches = set()
     for match in re.finditer(mitm_pattern, rule_text, re.MULTILINE):
         hostnames = match.group(1).split(',')
