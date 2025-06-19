@@ -36,13 +36,6 @@ def load_source(url):
 
 def build_sgmodule(rule_text, project_name):
     formatted_time = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
-    
-
-    
-    
-
-    
-
     header_lines = [
         f"#!name={project_name}",
         f"#!desc={formatted_time}",
