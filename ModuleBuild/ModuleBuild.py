@@ -53,7 +53,7 @@ def build_sgmodule(rule_text, project_name):
     sgmodule_content += f"""
 [Rule]
 """
-    rule_pattern = r'^(?!.*[#])(.*?)\s*(DOMAIN(?:-KEYWORD|-SUFFIX)?|IP-CIDR|AND|URL-REGEX),'
+    rule_pattern = r'^(?!.*[#])(.*?)\s*(DOMAIN(?:-SUFFIX|-KEYWORD)?|IP-CIDR|AND|URL-REGEX),'
     priority_list = ['DOMAIN,', 'DOMAIN-SUFFIX,', 'DOMAIN-KEYWORD,', 'IP-CIDR,', 'AND,', 'URL-REGEX,']
     priority_index = {p: i for i, p in enumerate(priority_list)}
     rule_lines = []
