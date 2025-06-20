@@ -70,10 +70,10 @@ Telegram使用**新加坡节点**，Google、AI工具使用**美国节点**；<b
 ---
 
 ### [全局配置](#全局配置)
-[全局配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesGlobal.conf)基于[精简配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesLite.conf)构建，适合特殊地区使用，全局使用代理连接，可单独指定某些服务不使用代理；<br>
-此配置仅限**特殊地区使用，请仔细评估！**<br>
+[全局配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesGlobal.conf)基于[精简配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesLite.conf)构建，适合特殊地区使用，全局使用代理连接，可单独指定部分服务不使用代理；<br>
+此配置仅限**特殊地区使用，请谨慎评估！**<br>
 
-[![一键安装 全局分流配置](https://img.shields.io/static/v1?label=一键安装&message=RulesGlobal.conf&color=grey&logo=googledocs&logoColor=white&labelColor=orange&messageColor=white)](https://xiangwanguan.github.io/Shadowrocket/Static/Redirect.html?url=shadowrocket://config/add/https://xiangwanguan.github.io/Shadowrocket/RulesGlobal.conf "一键安装：全局分流配置")<br>
+[![一键安装 全局代理配置](https://img.shields.io/static/v1?label=一键安装&message=RulesGlobal.conf&color=grey&logo=googledocs&logoColor=white&labelColor=orange&messageColor=white)](https://xiangwanguan.github.io/Shadowrocket/Static/Redirect.html?url=shadowrocket://config/add/https://xiangwanguan.github.io/Shadowrocket/RulesGlobal.conf "一键安装：全局代理配置")<br>
 
 ---
 
@@ -90,10 +90,10 @@ Telegram使用**新加坡节点**，Google、AI工具使用**美国节点**；<b
 ---
 
 ### [推荐设置](#推荐设置)
-如需使用[融合模块](#融合模块)来净化应用，则**必须开启MitM**，否则模块将不能正常工作；<br>
-建议添加**证书模块**，避免因配置变化导致证书失效；<br>
-证书信任之后，**请勿在设置中移除证书**，否则MitM将会失效；<br>
-证书模块启用后，“HTTPS解密”功能默认**强制开启**，开关设置将不再生效；<br>
+如需使用[融合模块](#融合模块)来净化应用，**必须开启HTTPS解密**，否则模块将不能正常工作；<br>
+建议添加**证书模块**，避免因配置变化导致HTTPS解密功能失效；<br>
+证书信任之后，**请勿在设置中移除证书**，否则HTTPS解密功能将会失效；<br>
+证书模块启用后，HTTPS解密功能默认**强制开启**，配置中的“HTTPS解密开关”将不再生效；<br>
 
 证书模块制作办法：<br>
 **配置** > 点击**配置文件**的 **ⓘ图标** > **HTTPS解密** > **证书** > **生成新的CA证书** > **安装证书**；<br>
