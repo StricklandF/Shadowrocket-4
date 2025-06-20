@@ -26,7 +26,6 @@ jobs:
         base_url="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket"
         cat > rule_sources.list <<EOF
         Rules/Lan.list|$base_url/Lan/Lan.list
-        Rules/Direct.list|$base_url/Direct/Direct.list
         Rules/Hijacking.list|$base_url/Hijacking/Hijacking.list
         Rules/Privacy_Domain.list|$base_url/Privacy/Privacy_Domain.list
         Rules/Privacy.list|$base_url/Privacy/Privacy.list
