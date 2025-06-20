@@ -69,6 +69,14 @@ Telegram使用**新加坡节点**，Google、AI工具使用**美国节点**；<b
 
 ---
 
+### [全局配置](#全局配置)
+[全局配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesGlobal.conf)基于[精简配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesLite.conf)构建，适合特殊地区使用，全局使用代理连接，可单独指定某些服务不使用代理；<br>
+此配置仅限**特殊地区使用，请仔细评估！**<br>
+
+[![一键安装 全局分流配置](https://img.shields.io/static/v1?label=一键安装&message=RulesGlobal.conf&color=grey&logo=googledocs&logoColor=white&labelColor=orange&messageColor=white)](https://xiangwanguan.github.io/Shadowrocket/Static/Redirect.html?url=shadowrocket://config/add/https://xiangwanguan.github.io/Shadowrocket/RulesGlobal.conf "一键安装：全局分流配置")<br>
+
+---
+
 ### [融合模块](#融合模块)
 [融合模块](https://github.com/XiangwanGuan/Shadowrocket/blob/main/Module.sgmodule)由[GitHub Actions](https://github.com/XiangwanGuan/Shadowrocket/blob/main/.github/workflows/Update%20ModuleRules.yml)调用[生成器](https://github.com/XiangwanGuan/Shadowrocket/blob/main/ModuleBuild/ModuleBuild.py)依据[规则](https://github.com/XiangwanGuan/Shadowrocket/blob/main/ModuleBuild/BuildList.conf)而构建，随规则变化，不定期更新；<br>
 规则构成：以[向晚](https://t.me/xiangwanguan)基于[fmz200的重写合集](https://github.com/fmz200/wool_scripts/blob/main/QuantumultX/rewrite/chongxie.txt)与[zirawell的重写合集](https://github.com/zirawell/R-Store/blob/main/Rule/QuanX/Adblock/All/filter/allAdBlock.list)定制，并持续手动维护的[重写合集](https://github.com/XiangwanGuan/Shadowrocket/blob/main/Rewrite/XiangwanConfig/RewriteBuild.conf)为基础，融合了[小红书](https://github.com/XiangwanGuan/Shadowrocket/blob/main/Rewrite/XiangwanConfig/Rednote.conf)、[哔哩哔哩](https://github.com/XiangwanGuan/Shadowrocket/blob/main/Rewrite/XiangwanConfig/Bilibili.conf)、[YouTube](https://github.com/XiangwanGuan/Shadowrocket/blob/main/Rewrite/XiangwanConfig/YouTube.conf)、[高德地图](https://github.com/XiangwanGuan/Shadowrocket/blob/main/Rewrite/XiangwanConfig/Amap.js)、[一汽大众](https://github.com/XiangwanGuan/Shadowrocket/blob/main/Rewrite/XiangwanConfig/FAWVW.js)的专用规则；<br>
@@ -92,8 +100,7 @@ Telegram使用**新加坡节点**，Google、AI工具使用**美国节点**；<b
 同一iCloud的多设备用户，另一台设备请点击**证书** > 后面的**ⓘ图标**，选择**粘贴** > **安装证书**，请勿重新生成新的证书，否则上一证书将会失效；<br>
 **系统设置** > **已下载描述文件** > **安装**；<br>
 **系统设置** > **通用** > **关于本机** > **证书信任设置** > **启用**此证书的根证书完全信任；<br>
-打开**Shadowrocket**，点击「已安装证书的配置文件」后面的**ⓘ图标** > **HTTPS解密** > 证书后面的**ⓘ图标** > **复制**；<br>
-**配置** > **模块** > **新建模块**，**粘贴**并**自行修改**以下内容：<br>
+**配置** > **模块** > **新建模块**，**修改**并**保存为**以下内容：<br>
 ```ini
 #!name = 证书模块
 [MITM]
@@ -105,7 +112,8 @@ ca-passphrase = Shadowrocket
 # 须在"ca-p12="后面粘贴证书内容；
 ca-p12 = 
 ```
-按说明确认**证书密码**和填写**证书内容**，**保存**即可；<br>
+**配置**，点击**已安装证书的配置文件**后面的**ⓘ图标** > **HTTPS解密** > 证书后面的**ⓘ图标** > **复制**；<br>
+**配置** > **模块** > **证书模块**后面的**ⓘ图标** > 在**等号后面**，**粘贴复制的内容**并**保存**；<br>
 
 软件配置：<br>
 首页-全局路由：
