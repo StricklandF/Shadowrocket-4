@@ -1,5 +1,5 @@
 #!name=融合模块
-#!desc=2025-06-20 14:14:05
+#!desc=2025-06-20 14:24:00
 #!arguments=哔哩哔哩·显示最常访问:false, 哔哩哔哩·屏蔽置顶广告:true, YouTube ·屏蔽上传按钮:true, YouTube ·屏蔽选段按钮:true, YouTube ·屏蔽短片按钮:true, YouTube ·字幕翻译语言:zh-Hans, YouTube ·歌词翻译语言:zh-Hans
 #!arguments-desc=\n 参数说明：\n YouTube字幕翻译语言：默认中文，填off关闭；\n YouTube歌词翻译语言：默认中文，填off关闭；\n 
 
@@ -1311,7 +1311,7 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/pv\.elife\.icbc\.com\.cn\/OFSTPV\/utm\.gif - reject-200
 ^https?:\/\/pzoap\.moedot\.net\/xgapp\.php\/v2\/top_notice - reject
 ^https?:\/\/qadx\.qinlinad\.com\/ad\/ - reject
-^https?:\/\/qapi\.huolala\.cn\/(?>ads|home_new_user|get_service_list) - reject-dict
+^https?:\/\/qapi\.huolala\.cn\/(ads|home_new_user|get_service_list) - reject-dict
 ^https?:\/\/qde\.qunar\.com\/preload - reject-200
 ^https?:\/\/qidian\.qpic\.cn\/qidian_common - reject-img
 ^https?:\/\/qimg\.cdnmama\.com\/rd - reject-dict
