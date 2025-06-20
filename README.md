@@ -13,7 +13,6 @@
 
 ### [配置说明](#配置说明)
 使用加密的**DoH**进行DNS解析，并劫持未加密的查询请求；<br>
-提供有效的**劫持保护**与**隐私保护策略**；<br>
 Apple/Microsoft/Google：**系统服务商**已单独分流；<br>
 ChatGPT/Copilot/Gemini等：**AI工具**已单独分流；<br>
 WeChat/Telegram：**即时通讯工具**类已单独分流，降低因策略变化导致封号的风险；<br>
@@ -55,7 +54,7 @@ Telegram使用**新加坡节点**，Google、AI工具使用**美国节点**；<b
 
 ### [精简配置](#精简配置)
 [精简配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesLite.conf)基于[基础配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/Rules.conf)构建，除不包含代理分组以外，其余配置完全相同；<br>
-如**不需要代理分组**，建议使用此配置！<br>
+如**不需要节点分流**，建议使用此配置！<br>
 
 [![一键安装 精简配置](https://img.shields.io/static/v1?label=一键安装&message=RulesLite.conf&color=grey&logo=googledocs&logoColor=white&labelColor=orange&messageColor=white)](https://xiangwanguan.github.io/Shadowrocket/Static/Redirect.html?url=shadowrocket://config/add/https://xiangwanguan.github.io/Shadowrocket/RulesLite.conf "一键安装：精简配置")<br>
 
@@ -71,7 +70,7 @@ Telegram使用**新加坡节点**，Google、AI工具使用**美国节点**；<b
 
 ### [全局配置](#全局配置)
 [全局配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesGlobal.conf)基于[精简配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesLite.conf)构建，适合特殊地区使用，全局使用代理连接，可单独指定部分服务不使用代理；<br>
-此配置仅限**特殊地区使用，请谨慎评估！**<br>
+此配置**仅限特殊地区使用**，请谨慎评估！<br>
 
 [![一键安装 全局代理配置](https://img.shields.io/static/v1?label=一键安装&message=RulesGlobal.conf&color=grey&logo=googledocs&logoColor=white&labelColor=orange&messageColor=white)](https://xiangwanguan.github.io/Shadowrocket/Static/Redirect.html?url=shadowrocket://config/add/https://xiangwanguan.github.io/Shadowrocket/RulesGlobal.conf "一键安装：全局代理配置")<br>
 
