@@ -23,7 +23,6 @@ https://raw.githubusercontent.com/fmz200/wool_scripts/main/QuantumultX/scripts/F
 https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/fly.js<br>
 https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/huifutianxia_ads.js<br>
 https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/ithome/ithome.js<br>
-https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/jingdong/jingdong.js<br>
 https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/jingxiAd.js<br>
 https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/keep.js<br>
 https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/kuwo/kuwo.js<br>
@@ -79,6 +78,7 @@ https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/gaodi
 https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/goofish.js<br>
 https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/guiderank.js<br>
 https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/haier.js<br>
+https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/jd.js<br>
 https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/kuaikanComic.js<br>
 https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/mafengwo.js<br>
 https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/mdb.js<br>

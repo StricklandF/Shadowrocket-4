@@ -1,4 +1,11 @@
-// 2024-04-18 17:45
+/********************************
+Jingdong Remove Ads - Version 1.0
+Please note that you may need to reinstall app for script to work.
+
+QuantumultX rewrite link:
+https://raw.githubusercontent.com/zirawell/R-Store/main/Rule/QuanX/Adblock/App/J/京东/rewrite/jd.conf
+
+********************************/
 
 const url = $request.url;
 if (!$response.body) $done({});
@@ -289,4 +296,4 @@ if (url.includes("functionId=deliverLayer") || url.includes("functionId=orderTra
   }
 }
 
-$done({ body: JSON.stringify(obj) });
+$done({body: JSON.stringify(obj)});
