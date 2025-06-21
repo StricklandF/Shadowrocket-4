@@ -1,5 +1,5 @@
 #!name=融合模块
-#!desc=2025-06-21 09:51:43
+#!desc=2025-06-21 22:12:00
 #!arguments=哔哩哔哩·显示最常访问:false, 哔哩哔哩·屏蔽置顶广告:true, YouTube ·屏蔽上传按钮:true, YouTube ·屏蔽选段按钮:true, YouTube ·屏蔽短片按钮:true, YouTube ·字幕翻译语言:zh-Hans, YouTube ·歌词翻译语言:zh-Hans
 #!arguments-desc=\n 参数说明：\n YouTube字幕翻译语言：默认中文，填off关闭；\n YouTube歌词翻译语言：默认中文，填off关闭；\n 
 
@@ -612,6 +612,7 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/bp-api\.bestv\.com\.cn\/cms\/api\/free\/open\/advertisingV2 - reject-dict
 ^https?:\/\/bp-image\.bestv\.com\.cn\/[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{25}\.jpg - reject-200
 ^https?:\/\/btrace\.qq\.com - reject-200
+^https?:\/\/business\.msstatic\.com\/advertiser - reject-200
 ^https?:\/\/business\.msstatic\.com\/advertiser\/material - reject
 ^https?:\/\/buy\.line\.me\/api\/graphql\?variables - reject
 ^https?:\/\/c\.kuaiduizuoye\.com\/adx\/impress - reject-dict
@@ -833,10 +834,7 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/gaia\.ch\.com\/ECProduct\/homePageRevision\/queryRecommendInfo - reject
 ^https?:\/\/gaia\.ch\.com\/ECProduct\/popupWindow - reject
 ^https?:\/\/gaia\.ch\.com\/ECPromotion\/appFlash - reject
-^https?:\/\/games\.mobileapi\.hupu\.com\/.+?\/(interfaceAdMonitor|interfaceAd)\/ - reject
-^https?:\/\/games\.mobileapi\.hupu\.com\/.+?\/(search|interfaceAdMonitor|status|hupuBbsPm)/(hotkey|init|hupuBbsPm)\. - reject-img
-^https?:\/\/games\.mobileapi\.hupu\.com\/.+?\/status\/init - reject
-^https?:\/\/games\.mobileapi\.hupu\.com\/\d\/(?:\d\.){2}\d\/status\/init - reject
+^https?:\/\/games\.mobileapi\.hupu\.com(\/.+)?\/(interfaceAd|status\/init) - reject-200
 ^https?:\/\/gateway(retry)?\.kugou\.com\/adp\/ad\/ - reject-dict
 ^https?:\/\/gateway(retry)?\.kugou\.com\/adp\/bubble\/v\d\/song_play - reject-dict
 ^https?:\/\/gateway(retry)?\.kugou\.com\/ads\.gateway\/ - reject-dict
@@ -860,7 +858,7 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/go\.babytree\.com\/go_pregnancy\/api\/index_activity - reject
 ^https?:\/\/go\.babytree\.com\/go_tool\/api\/feeding_record\/get_home_banner_info - reject
 ^https?:\/\/go\.babytree\.com\/go_tool\/api\/tools\/get_third_privacy_msgbox_list - reject
-^https?:\/\/goblin\.hupu\.com\/.+\/interfaceAd\/getOther - reject
+^https?:\/\/goblin\.hupu\.com\/.+\/interfaceAd\/ - reject
 ^https?:\/\/god\.gameyw\.netease\.com\/v\d\/ad - reject-dict
 ^https?:\/\/gongdu\.youshu\.cc\/m\/open_screen\/list_by_udid - reject
 ^https?:\/\/gslb.*\.ximalaya\.com\/ - reject
@@ -923,11 +921,10 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/hweb-manager\.huazhu\.com\/notice\/getAppPopupNotifyAlert - reject-dict
 ^https?:\/\/hwstore\.kugou\.com\/v\d\/get_store_data - reject-dict
 ^https?:\/\/hz\.yxzq\.com\/news-configserver\/api\/v1\/query\/banner_advertisement - reject-dict
-^https?:\/\/i1\.hoopchina\.com\.cn\/blogfile\/.+_\d{3}x\d{4} - reject-img
 ^https?:\/\/i\d\.hdslb\.com\/bfs\/fawkes - reject-dict
 ^https?:\/\/i\d\.hdslb\.com\/bfs\/manga-static\/\w+\.(jpg|png)$ - reject-200
 ^https?:\/\/i\d\.hdslb\.com\/bfs\/manga-static\/\w+\.(jpg|png)@1200w_1500h_1e_1c - reject-200
-^https?:\/\/i\d\.hoopchina\.com\.cn/blogfile\//d+\//d+\/BbsImg\.(?<=(big.(png|jpg)))$ - reject-img
+^https?:\/\/i\d\.hoopchina\.com\.cn\/blogfile\/.+_\d{3}x\d{4} - reject-img
 ^https?:\/\/iadmusicmat\.music.126.net\/.*?jpg$ - reject
 ^https?:\/\/iapi\.bishijie\.com\/actopen\/advertising\/ - reject
 ^https?:\/\/icc\.one\/iFreeTime\/xid32uxaoecnfv - reject
