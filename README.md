@@ -61,18 +61,18 @@ Telegram使用**新加坡节点**，Google、AI工具使用**美国节点**；<b
 ---
 
 ### [回国配置](#回国配置)
-[回国配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesBackCN.conf)基于[精简配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesLite.conf)构建，适合外国华侨使用，国内域名代理，其余域名直连；<br>
+[回国配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesBackCN.conf)基于[精简配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesLite.conf)构建，适用于外国华侨使用，国内域名代理，其余域名直连；<br>
 此配置需搭配**回国机场**使用，**不适合国内用户使用！**<br>
 
-[![一键安装 回国分流配置](https://img.shields.io/static/v1?label=一键安装&message=RulesBackCN.conf&color=grey&logo=googledocs&logoColor=white&labelColor=orange&messageColor=white)](https://xiangwanguan.github.io/Shadowrocket/Static/Redirect.html?url=shadowrocket://config/add/https://xiangwanguan.github.io/Shadowrocket/RulesBackCN.conf "一键安装：回国分流配置")<br>
+[![一键安装 回国配置](https://img.shields.io/static/v1?label=一键安装&message=RulesBackCN.conf&color=grey&logo=googledocs&logoColor=white&labelColor=orange&messageColor=white)](https://xiangwanguan.github.io/Shadowrocket/Static/Redirect.html?url=shadowrocket://config/add/https://xiangwanguan.github.io/Shadowrocket/RulesBackCN.conf "一键安装：回国配置")<br>
 
 ---
 
-### [全局配置](#全局配置)
-[全局配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesGlobal.conf)基于[精简配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesLite.conf)构建，适合特殊地区使用，全局使用代理连接，可单独指定部分服务不使用代理；<br>
-此配置**仅限特殊地区使用**，请谨慎评估！<br>
+### [全球配置](#全球配置)
+[全球配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesGlobal.conf)基于[精简配置](https://github.com/XiangwanGuan/Shadowrocket/blob/main/RulesLite.conf)构建，适用于非大陆地区，全局直连，可单独指定部分服务使用代理；<br>
+此配置需搭配**国外机场**使用，**不适合国内用户使用！**<br>
 
-[![一键安装 全局代理配置](https://img.shields.io/static/v1?label=一键安装&message=RulesGlobal.conf&color=grey&logo=googledocs&logoColor=white&labelColor=orange&messageColor=white)](https://xiangwanguan.github.io/Shadowrocket/Static/Redirect.html?url=shadowrocket://config/add/https://xiangwanguan.github.io/Shadowrocket/RulesGlobal.conf "一键安装：全局代理配置")<br>
+[![一键安装 全球配置](https://img.shields.io/static/v1?label=一键安装&message=RulesGlobal.conf&color=grey&logo=googledocs&logoColor=white&labelColor=orange&messageColor=white)](https://xiangwanguan.github.io/Shadowrocket/Static/Redirect.html?url=shadowrocket://config/add/https://xiangwanguan.github.io/Shadowrocket/RulesGlobal.conf "一键安装：全球配置")<br>
 
 ---
 
