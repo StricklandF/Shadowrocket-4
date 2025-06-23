@@ -1,5 +1,5 @@
 #!name=融合模块
-#!desc=2025-06-23 21:19:34
+#!desc=2025-06-23 21:19:59
 #!arguments=哔哩哔哩·显示最常访问:false, 哔哩哔哩·屏蔽置顶广告:true, YouTube ·屏蔽上传按钮:true, YouTube ·屏蔽选段按钮:true, YouTube ·屏蔽短片按钮:true, YouTube ·字幕翻译语言:zh-Hans, YouTube ·歌词翻译语言:zh-Hans
 #!arguments-desc=\n 参数说明：\n YouTube字幕翻译语言：默认中文，填off关闭；\n YouTube歌词翻译语言：默认中文，填off关闭；\n 
 
@@ -878,7 +878,7 @@ URL-REGEX, ^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH, REJECT-DICT
 ^https?:\/\/gateway\.36kr\.com\/api\/adx\/ad\/show - reject
 ^https?:\/\/gateway\.benewtech\.cn\/resources-app\/app\/startup\/prepage - reject-dict
 ^https?:\/\/gateway\.cotticoffee\.com\/cotti-capi\/customer\/position\/adSortList - reject-dict
-^https?:\/\/gateway\.cotticoffee\.com\/cotti-capi\/customer\/position\/list\?code=.+-(?>window|float) - reject-dict
+^https?:\/\/gateway\.cotticoffee\.com\/cotti-capi\/customer\/position\/list\?code=.+-(window|float) - reject-dict
 ^https?:\/\/gateway\.cotticoffee\.com\/cotti-capi\/customer\/position\/list\?code=cotti-launch-window - reject-dict
 ^https?:\/\/gateway\.cotticoffee\.com\/cotti-capi\/customer\/position\/list\?code=v\d-cotti-order-detail-banner - reject-dict
 ^https?:\/\/gateway\.shouqiev\.com\/fsda\/app\/bootImage\.json - reject
