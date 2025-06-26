@@ -128,21 +128,22 @@ def build_sgmodule(rule_text, project_name):
 [Body Rewrite]
 """
     body_pattern = r'^(?!.*[#])(.*?)\s*response-body-json-jq\s+(.*)$'
-    body_jq_rules = ""
+    body_jq_lines = []
     for match in re.finditer(body_pattern, rule_text, re.MULTILINE):
         body_matcher = match.group(1).strip()
         body_expr = match.group(2).strip()
         if body_expr.startswith("'") and body_expr.endswith("'"):
-            body_jq_rules += f"http-response-jq {body_matcher} {body_expr}\n"
+            line = f"http-response-jq {body_matcher} {body_expr}"
+            body_jq_lines.append(line)
         elif body_expr.startswith('jq-path="') and body_expr.endswith('"'):
-            body_jq_rules += f"http-response-jq {body_matcher} {body_expr}\n"
-    sgmodule_content += body_jq_rules
+            line = f"http-response-jq {body_matcher} {body_expr}"
+            body_jq_lines.append(line)
+    sgmodule_content += '\n'.join(sorted(set(body_jq_lines))) + '\n'
 
     sgmodule_content += f"""
 [Script]
 """
     script_pattern = r'^(?!.*[#])(.*?)\s*url\s+(script-(?:response|request)-(?:body|header)|script-echo-response|script-analyze-echo-response)\s+(\S+)'
-    replace_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
     script_content = ""
     for match in re.finditer(script_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
@@ -165,12 +166,16 @@ def build_sgmodule(rule_text, project_name):
         script_line = ', '.join(params)
         script_content += script_line + "\n"
     script_content = '\n'.join(sorted(set(script_content.splitlines())))
+    replace_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
     sgmodule_content += script_content + "\n"
+    replace_lines = []
     for match in re.finditer(replace_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
         re1 = match.group(3).strip()
         re2 = match.group(5).strip()
-        sgmodule_content += f"ReplaceBody =type=http-response, pattern={pattern}, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/ReplaceBody.js, requires-body=true, argument={re1}->{re2},max-size=0\n"
+        line = f"ReplaceBody =type=http-response, pattern={pattern}, script-path=https://xiangwanguan.github.io/Shadowrocket/Rewrite/JavaScript/ReplaceBody.js, requires-body=true, argument={re1}->{re2},max-size=0"
+        replace_lines.append(line)
+    sgmodule_content += '\n'.join(sorted(set(replace_lines))) + '\n'
 
     sgmodule_content += f"""
 [MITM]
