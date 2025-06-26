@@ -164,8 +164,8 @@ def build_sgmodule(rule_text, project_name):
         script_line = ', '.join(params)
         script_lines.append(script_line)
     script_content = '\n'.join(sorted(set(script_lines)))
-    replace_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
     sgmodule_content += script_content + "\n"
+    replace_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
     replace_lines = []
     for match in re.finditer(replace_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
