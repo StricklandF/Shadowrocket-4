@@ -198,7 +198,7 @@ def generate_sgmodule(rule_sources, project_name, parent_dir):
             print(f"Unable to retrieve or process rule source: {url}")
     sgmodule_content = build_sgmodule(merged_rule_text, project_name)
     if sgmodule_content:
-        output_file = os.path.join(parent_dir, "Module.sgmodule")
+        output_file = os.path.join(parent_dir, "Release/Module.sgmodule")
         save_sgmodule(sgmodule_content, output_file)
         print(sgmodule_content)
         print(f"Module successfully generated and saved to: {output_file}")

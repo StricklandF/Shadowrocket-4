@@ -323,6 +323,6 @@ jobs:
           author_name: 'GitHub Actions'
           author_email: 'actions@github.com'
           message: 'Update RewriteFiles'
-          add: Rewrite/**
+          add: 'Rewrite/**'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
