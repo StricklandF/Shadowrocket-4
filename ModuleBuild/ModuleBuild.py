@@ -78,20 +78,18 @@ def build_sgmodule(rule_text, project_name):
 [URL Rewrite]
 """
     rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
-    url_content = ""
+    header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
+    url_rewrite_lines = []
     for match in re.finditer(rewrite_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
         reject_type = match.group(2).strip()
-        url_content += f"{pattern} - {reject_type}\n"
-    header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
+        url_rewrite_lines.append(f"{pattern} - {reject_type}")
     for match in re.finditer(header_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
         reject_type = match.group(2).strip()
-        url_content += f"{pattern} url-and-header {reject_type}\n"
-    url_lines = [line for line in url_content.splitlines() if line.strip()]
-    unique_lines = sorted(set(url_lines))
-    url_content = '\n'.join(unique_lines)
-    sgmodule_content += url_content + "\n"
+        url_rewrite_lines.append(f"{pattern} url-and-header {reject_type}")
+    url_rewrite_content = '\n'.join(sorted(set(url_rewrite_lines))) + '\n'
+    sgmodule_content += url_rewrite_content
 
     sgmodule_content += f"""
 [Map Local]
