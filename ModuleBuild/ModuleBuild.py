@@ -78,12 +78,12 @@ def build_sgmodule(rule_text, project_name):
 [URL Rewrite]
 """
     rewrite_pattern = r'^(?!.*[#])(.*?)\s*url\s+(reject(?:-200|-array|-dict|-img|-tinygif)?)'
-    header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
     url_content = ""
     for match in re.finditer(rewrite_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
         reject_type = match.group(2).strip()
         url_content += f"{pattern} - {reject_type}\n"
+    header_pattern = r'^(?!.*[#])(.*?)\s*url-and-header\s+(reject(?:-drop|-no-drop)?)\s*'
     for match in re.finditer(header_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
         reject_type = match.group(2).strip()
@@ -144,7 +144,7 @@ def build_sgmodule(rule_text, project_name):
 [Script]
 """
     script_pattern = r'^(?!.*[#])(.*?)\s*url\s+(script-(?:response|request)-(?:body|header)|script-echo-response|script-analyze-echo-response)\s+(\S+)'
-    script_content = ""
+    script_lines = []
     for match in re.finditer(script_pattern, rule_text, re.MULTILINE):
         pattern = match.group(1).strip()
         script_type_raw = match.group(2)
@@ -164,8 +164,8 @@ def build_sgmodule(rule_text, project_name):
         if argument_match:
             params.append(f'argument={argument_match.group(1)}')
         script_line = ', '.join(params)
-        script_content += script_line + "\n"
-    script_content = '\n'.join(sorted(set(script_content.splitlines())))
+        script_lines.append(script_line)
+    script_content = '\n'.join(sorted(set(script_lines)))
     replace_pattern = r'^(?!.*[#])(.*?)\s*url\s+(response-body)\s+(\S+)\s+(response-body)\s+(\S+)'
     sgmodule_content += script_content + "\n"
     replace_lines = []
