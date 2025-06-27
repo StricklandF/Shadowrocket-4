@@ -215,7 +215,7 @@ def save_sgmodule(content, file_path):
 def main():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.dirname(current_dir)
-    input_file_path = os.path.join(parent_dir, "ModuleBuild", "BuildList.conf")
+    input_file_path = os.path.join(parent_dir, "Generator", "Generate.conf")
     print("Input file path:", input_file_path)
     try:
         with open(input_file_path, 'r') as file:

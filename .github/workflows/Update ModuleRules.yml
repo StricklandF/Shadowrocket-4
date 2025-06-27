@@ -26,7 +26,7 @@ jobs:
 
     - name: Run Python script
       run: |
-        python ModuleBuild/ModuleBuild.py
+        python Generator/Builder.py
 
     - name: Commit & push generated ModuleRules
       uses: EndBug/add-and-commit@v9
