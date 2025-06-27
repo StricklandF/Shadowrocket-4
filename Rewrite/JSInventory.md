@@ -1,4 +1,4 @@
-## JavaScript Build List <br>
+## JavaScript Inventory <br>
 
 ### fmz200: <br>
 https://raw.githubusercontent.com/kokoryh/Script/master/js/12306.js<br>

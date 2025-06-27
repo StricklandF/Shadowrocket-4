@@ -134,7 +134,7 @@ jobs:
             fi
           done
           {
-            echo "## JavaScript Build List <br>"
+            echo "## JavaScript Inventory <br>"
             echo ""
             echo "### fmz200: <br>"
             echo -e "$naisi_original_links"
