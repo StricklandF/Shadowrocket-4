@@ -43,9 +43,9 @@ jobs:
             curl -fsS -o "$download_filepath" "$download_url" || (echo "Retrying..." && curl -fsS -o "$download_filepath" "$download_url") || true
           done < download_file_links.list
 
-      - name: Clear previous JavaScriptBuildList.md contents
+      - name: Clear previous JSInventory.md contents
         run: |
-          > Rewrite/JavaScriptBuildList.md
+          > Rewrite/JSInventory.md
 
       - name: Preprocess Naisi Scripts
         run: |
@@ -91,7 +91,7 @@ jobs:
 
       - name: Copy selected NaisiScripts to JavaScript
         run: |
-          build_conf_file="Rewrite/JavaScriptBuild.conf"
+          build_conf_file="Rewrite/JSGenerator.conf"
           sed -i -e '$a\' "$build_conf_file"
           naisi_selected_scripts=()
           in_section=0
@@ -138,7 +138,7 @@ jobs:
             echo ""
             echo "### fmz200: <br>"
             echo -e "$naisi_original_links"
-          } >> Rewrite/JavaScriptBuildList.md
+          } >> Rewrite/JSInventory.md
 
       - name: Preprocess Zirawell Scripts
         run: |
@@ -162,7 +162,7 @@ jobs:
 
       - name: Copy selected ZirawellScripts to JavaScript
         run: |
-          build_conf_file="Rewrite/JavaScriptBuild.conf"
+          build_conf_file="Rewrite/JSGenerator.conf"
           sed -i -e '$a\' "$build_conf_file"
           zirawell_selected_scripts=()
           in_section=0
@@ -195,12 +195,12 @@ jobs:
             {
               echo "### zirawell: <br>"
               echo -e "$zirawell_original_links"
-            } >> Rewrite/JavaScriptBuildList.md
+            } >> Rewrite/JSInventory.md
           fi
 
       - name: Preprocess Local Scripts
         run: |
-          build_conf_file="Rewrite/JavaScriptBuild.conf"
+          build_conf_file="Rewrite/JSGenerator.conf"
           sed -i -e '$a\' "$build_conf_file"
           local_files_to_check=()
           in_section=0
@@ -245,12 +245,12 @@ jobs:
             {
               echo "### local: <br>"
               echo -e "$local_original_links"
-            } >> Rewrite/JavaScriptBuildList.md
+            } >> Rewrite/JSInventory.md
           fi
 
       - name: Clean up unused local script files
         run: |
-          build_conf_file="Rewrite/JavaScriptBuild.conf"
+          build_conf_file="Rewrite/JSGenerator.conf"
           sed -i -e '$a\' "$build_conf_file"
           keep_files=()
           in_section=""
