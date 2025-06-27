@@ -1,4 +1,4 @@
-name: Update RuleFiles
+name: Sync-RuleFiles
 on:
   schedule:
     - cron: '22 22 * * *'
@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  Update-RuleFiles:
+  Sync-RuleFiles:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -72,7 +72,7 @@ jobs:
       with:
         author_name: 'GitHub Actions'
         author_email: 'actions@github.com'
-        message: 'Update RuleFiles'
+        message: 'Sync-RuleFiles'
         add: 'Rules/**'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

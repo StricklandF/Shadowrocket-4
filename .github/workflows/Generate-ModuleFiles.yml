@@ -1,4 +1,4 @@
-name: Update ModuleRules
+name: Generate-ModuleFiles
 on:
   workflow_dispatch:
 
@@ -33,7 +33,7 @@ jobs:
       with:
         author_name: 'GitHub Actions'
         author_email: 'actions@github.com'
-        message: 'Update ModuleRules'
+        message: 'Generate-ModuleFiles'
         add: 'Release/**'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,13 +1,13 @@
-name: Update GitHubPages
+name: Deploy-GitHubPages
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
   workflow_run:
     workflows: 
-      - "Update RuleFiles"
-      - "Update RewriteFiles"
-      - "Update ModuleRules"
+      - "Sync-RuleFiles"
+      - "Sync-RewriteFiles"
+      - "Generate-ModuleFiles"
     types:
       - completed
 
