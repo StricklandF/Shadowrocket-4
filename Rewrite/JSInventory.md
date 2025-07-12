@@ -51,7 +51,6 @@ https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js<br>
 https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/xiaotucc.js<br>
 https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/xjsp.js<br>
 https://raw.githubusercontent.com/Sliverkiss/QuantumultX/main/AdBlock/xmApp/xmApp.js<br>
-https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/xmly_json.js<br>
 https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/yx.js<br>
 https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhangshanggongjiao.js<br>
 https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhuanzhuan/zhuanzhuan.js<br>
