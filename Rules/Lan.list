@@ -1,12 +1,14 @@
 # NAME: Lan
-# UPDATED: 2026-04-14
-# DOMAIN: 7
+# UPDATED: 2026-10-20
+# DOMAIN: 9
 # DOMAIN-SUFFIX: 115
 # IP-CIDR: 18
-# TOTAL: 140
+# TOTAL: 142
 DOMAIN,asusrouter.com
 DOMAIN,instant.arubanetworks.com
 DOMAIN,local.adguard.org
+DOMAIN,localhost.weixin.qq.com
+DOMAIN,localhost.work.weixin.qq.com
 DOMAIN,oasisauth.h3c.com
 DOMAIN,router.asus.com
 DOMAIN,setmeup.arubanetworks.com
